@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+<body>
+<title>Isaias at Romar Place</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm reading column, phone-first. Summary first (alert, three numbers, distance bars), detail below. */
+:root {
+  --bg: #f2f5f7;
+  --surface: #ffffff;
+  --ink: #12232e;
+  --muted: #536571;
+  --line: #d6dee3;
+  --accent: #0f5e78;        /* Gulf water */
+  --bar: #7fb3c4;
+  --bar-key: #0f5e78;
+  /* NHC map colors for watches and warnings */
+  --hu-warning: #d7263d;
+  --hu-watch: #e86fa8;
+  --ts-warning: #2d6cdf;
+  --ts-watch: #e3b505;
+  --ok: #2f8f5b;
+  --chip-ink: #ffffff;
+  /* map */
+  --water: #cfe1e9;
+  --land: #e6eae3;
+  --border: #aab5ad;
+  --cone: #ffffff;
+  --cone-edge: #4f6470;
+  --track: #12232e;
+  --past: #7d8c95;
+  --condo: #0f5e78;
+  --cone-opacity: .55;
+  --display: "Barlow Semi Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --body: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d171d; --surface: #14222a; --ink: #e4ecf0; --muted: #9db0bb; --line: #26363f;
+    --accent: #5fb7d4; --bar: #2f6476; --bar-key: #5fb7d4;
+    --hu-warning: #ef4f63; --hu-watch: #f08cbc; --ts-warning: #5b8ff0; --ts-watch: #f0c93a; --ok: #4fbf82;
+    --chip-ink: #0d171d; color-scheme: dark;
+    --water: #10252f; --land: #22313a; --border: #4a5c66; --cone: #b9cbd4; --cone-edge: #a9bec8;
+    --track: #e4ecf0; --past: #7f939e; --condo: #5fb7d4; --cone-opacity: .28;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d171d; --surface: #14222a; --ink: #e4ecf0; --muted: #9db0bb; --line: #26363f;
+  --accent: #5fb7d4; --bar: #2f6476; --bar-key: #5fb7d4;
+  --hu-warning: #ef4f63; --hu-watch: #f08cbc; --ts-warning: #5b8ff0; --ts-watch: #f0c93a; --ok: #4fbf82;
+  --chip-ink: #0d171d; color-scheme: dark;
+  --water: #10252f; --land: #22313a; --border: #4a5c66; --cone: #b9cbd4; --cone-edge: #a9bec8;
+  --track: #e4ecf0; --past: #7f939e; --condo: #5fb7d4; --cone-opacity: .28;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+.wrap { max-width: 760px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 48px; display: grid; gap: 28px; }
+h1, h2 { font-family: var(--display); margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(30px, 6vw, 44px); line-height: 1.08; font-weight: 700; }
+h2 { font-size: 22px; font-weight: 600; letter-spacing: .01em; }
+p { margin: 0; }
+a { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.eyebrow { font-family: var(--display); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-size: 14px; }
+.head { display: grid; gap: 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: .03em; padding: 3px 10px; border-radius: 4px; color: var(--chip-ink); background: var(--muted); }
+.chip.hu-warning { background: var(--hu-warning); }
+.chip.hu-watch { background: var(--hu-watch); }
+.chip.ts-warning { background: var(--ts-warning); }
+.chip.ts-watch { background: var(--ts-watch); }
+.chip.ok { background: var(--ok); }
+.updated { color: var(--muted); font-size: 14px; }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.stat { background: var(--surface); padding: 14px 14px 16px; display: grid; gap: 2px; align-content: start; min-width: 0; }
+.stat .k { font-size: 13px; color: var(--muted); }
+.stat .v { font-family: var(--display); font-weight: 700; font-size: clamp(26px, 6vw, 36px); line-height: 1.05; font-variant-numeric: tabular-nums; }
+.stat .n { font-size: 13px; color: var(--muted); }
+@media (max-width: 520px) { .stats { grid-template-columns: 1fr; } .stat { grid-template-columns: 1fr auto; align-items: baseline; } .stat .n { grid-column: 1 / -1; } }
+section { display: grid; gap: 12px; }
+.lede { color: var(--muted); font-size: 14px; }
+.bars { display: grid; gap: 6px; }
+.bar-row { display: grid; grid-template-columns: 8.5em minmax(0, 1fr); gap: 10px; align-items: center; font-size: 14px; }
+.bar-row .t { color: var(--muted); font-variant-numeric: tabular-nums; }
+.bar-row.key .t { color: var(--ink); font-weight: 600; }
+.track { position: relative; height: 24px; display: flex; align-items: center; gap: 8px; min-width: 0; }
+.fill { height: 14px; border-radius: 2px; background: var(--bar); flex: none; min-width: 3px; }
+.bar-row.key .fill { background: var(--bar-key); }
+.val { font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 500; }
+.facts { margin: 0; display: grid; border-top: 1px solid var(--line); }
+.fact { display: grid; grid-template-columns: 11em minmax(0, 1fr); gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.fact dt { font-weight: 600; font-size: 15px; }
+.fact dd { margin: 0; min-width: 0; }
+.fact.bad dt::before, .fact.warn dt::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; vertical-align: 2px; }
+.fact.bad dt::before { background: var(--hu-warning); }
+.fact.warn dt::before { background: var(--ts-watch); }
+@media (max-width: 520px) { .fact { grid-template-columns: 1fr; gap: 2px; } }
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-left: 2px solid var(--line); margin-left: 6px; }
+.timeline li { position: relative; padding: 0 0 14px 18px; display: grid; gap: 1px; }
+.timeline li::before { content: ""; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--muted); }
+.timeline li.key::before { background: var(--hu-warning); border-color: var(--hu-warning); }
+.timeline .when { font-family: var(--display); font-weight: 600; font-size: 16px; }
+.timeline li.key .when { color: var(--hu-warning); }
+ul.plain { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+.note { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 10px; }
+.history { margin: 0; display: grid; gap: 8px; }
+.history div { display: grid; grid-template-columns: 9em minmax(0, 1fr); gap: 12px; font-size: 15px; }
+.history dt { color: var(--muted); font-variant-numeric: tabular-nums; }
+.history dd { margin: 0; }
+@media (max-width: 520px) { .history div { grid-template-columns: 1fr; gap: 0; } }
+.maps { display: grid; gap: 20px; }
+figure { margin: 0; display: grid; gap: 8px; min-width: 0; }
+figure svg { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 8px; background: var(--water); }
+figcaption { font-size: 14px; color: var(--muted); }
+figcaption strong { color: var(--ink); font-weight: 600; }
+@media (min-width: 720px) { .maps { grid-template-columns: 1fr 1fr; } }
+.m-water { fill: var(--water); }
+.m-land { fill: var(--land); stroke: var(--border); stroke-width: .8; }
+.m-border { fill: none; stroke: var(--border); stroke-width: .8; stroke-dasharray: 3 3; }
+.m-cone { opacity: var(--cone-opacity); }
+.m-cone .edge { fill: none; stroke: var(--cone-edge); stroke-width: 5; }
+.m-cone .fill { fill: var(--cone); }
+.m-past { fill: none; stroke: var(--past); stroke-width: 2.5; stroke-dasharray: 6 5; }
+.m-track { fill: none; stroke: var(--track); stroke-width: 2.5; }
+.m-pt circle { fill: var(--track); stroke: var(--water); stroke-width: 2; }
+.m-pt text { fill: var(--water); font: 700 13px var(--display); text-anchor: middle; dominant-baseline: central; }
+.m-when { fill: var(--track); font: 600 15px var(--display); paint-order: stroke; stroke: var(--water); stroke-width: 4px; stroke-linejoin: round; }
+.m-place { fill: var(--muted); font: 500 14px var(--body); paint-order: stroke; stroke: var(--land); stroke-width: 3px; stroke-linejoin: round; }
+.m-place-dot { fill: var(--muted); }
+.m-condo circle { fill: var(--condo); stroke: var(--water); stroke-width: 2.5; }
+.m-condo text { fill: var(--condo); font: 700 16px var(--display); paint-order: stroke; stroke: var(--water); stroke-width: 4px; stroke-linejoin: round; }
+.m-wind { fill: none; stroke: var(--hu-warning); stroke-width: 2; stroke-dasharray: 5 4; }
+.m-wind-label { fill: var(--hu-warning); font: 600 14px var(--display); paint-order: stroke; stroke: var(--water); stroke-width: 4px; stroke-linejoin: round; }
+.m-landfall { fill: var(--hu-warning); stroke: var(--water); stroke-width: 2; }
+.m-dist { stroke: var(--condo); stroke-width: 2; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--muted); }
+.legend b { font-family: var(--display); color: var(--ink); }
+footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 16px; }
+.sources { margin: 0; padding-left: 1.2em; font-size: 14px; }
+</style>
+
+<main class="wrap" id="app">
+  <p class="updated">Loading the latest storm update…</p>
+</main>
+
+<!-- BASE MAP: fixed coastline (Natural Earth 1:10m), projected. Do not edit per run. -->
+<script id="base-map" type="application/json">{"gulf":{"lon0":-97.5,"lat1":35.0,"cos":0.89298,"S":41.9943,"W":600,"H":693,"land":"M-11.1,515.5L-11.2,514.2L-10.9,513.4L-10.7,514.2L-11.1,515.5ZM360.5,705.5L360.9,705.2L360.9,705.5L360.5,705.5ZM379.6,697.0L381.3,691.5L382.1,690.1L381.7,693.4L381.2,694.8L379.6,697.0ZM383.6,682.9L384.4,686.6L383.9,687.5L383.6,682.9ZM224.0,682.3L220.5,682.6L218.0,685.8L216.6,686.1L217.4,684.6L212.2,686.6L223.5,680.6L224.0,682.3ZM608.4,660.8L603.8,660.4L604.3,657.7L603.4,655.5L604.6,655.6L605.7,659.2L608.5,658.1L608.0,656.4L611.2,657.2L611.2,659.5L608.4,660.8ZM369.3,657.0L369.4,657.0L369.1,657.8L369.3,657.0ZM398.1,614.9L393.9,619.0L393.1,613.2L395.0,608.6L397.2,606.1L399.8,606.9L403.5,604.9L398.1,614.9ZM404.0,577.7L404.9,579.6L403.5,575.8L404.0,577.7ZM576.9,564.0L581.9,560.7L582.2,561.1L581.7,562.3L578.4,563.9L576.9,564.0ZM583.7,561.0L585.3,560.7L587.3,559.9L584.9,562.0L584.2,562.0L583.7,561.0ZM597.7,562.6L603.1,558.6L604.9,558.1L600.2,562.0L597.7,562.6ZM546.8,569.4L540.8,568.2L537.7,564.9L536.6,561.5L540.6,564.7L542.9,564.9L545.1,562.8L545.3,564.3L546.0,563.0L544.3,561.9L540.5,554.3L540.9,552.5L545.3,549.1L544.1,548.1L554.8,550.4L555.3,553.3L558.8,556.6L558.2,560.0L561.0,562.9L559.0,565.2L552.8,568.1L546.8,569.4ZM-3.8,556.4L-5.2,556.7L-6.1,555.2L-6.9,551.7L-3.8,556.4ZM556.1,548.1L557.1,547.9L559.1,549.0L557.6,549.3L556.1,548.1ZM521.6,547.6L521.3,547.1L523.3,547.6L521.6,547.6ZM596.9,542.7L598.3,544.0L596.6,542.9L596.9,542.7ZM291.0,522.8L289.8,523.5L291.4,521.4L295.3,525.0L295.9,526.6L294.4,530.5L292.6,528.4L294.2,526.1L291.0,522.8ZM561.4,519.1L562.2,521.1L561.7,522.4L561.4,519.1ZM576.8,438.7L576.4,438.7L576.9,438.5L576.8,438.7ZM591.2,438.2L589.4,439.0L588.1,439.2L590.6,437.7L591.2,438.2ZM592.1,436.8L594.1,436.8L594.4,437.7L591.5,438.6L592.1,436.8ZM576.8,437.4L575.7,437.0L577.1,438.2L576.8,437.4ZM598.0,435.4L596.9,434.6L599.2,435.1L597.7,432.9L599.8,435.4L594.9,437.5L598.0,435.4ZM603.4,434.4L603.0,434.6L602.9,434.4L603.4,434.4ZM608.8,433.8L609.1,433.9L608.4,434.4L608.8,433.8ZM601.4,433.8L602.3,434.2L602.0,434.6L601.4,433.8ZM599.3,434.0L600.3,432.9L600.8,434.5L599.3,434.0ZM606.9,433.4L606.0,432.6L606.1,432.4L606.9,433.4ZM602.6,430.2L605.4,433.1L605.2,435.4L602.6,430.2ZM602.5,386.1L602.6,384.2L604.9,385.9L603.8,386.7L602.5,386.1ZM599.5,384.8L599.3,383.9L601.0,383.3L601.9,385.0L599.9,384.0L599.5,384.8ZM597.7,382.4L598.8,383.1L598.3,384.1L597.7,382.4ZM592.2,382.9L593.8,382.3L593.4,383.8L592.2,382.9ZM574.6,358.5L573.6,354.8L575.0,357.8L580.2,359.2L577.3,360.2L574.6,358.5ZM578.2,356.6L577.2,356.3L574.6,348.5L576.9,350.5L578.2,356.6ZM9.0,358.3L3.9,343.1L3.6,330.7L4.1,327.8L4.7,327.2L5.9,346.2L10.3,361.2L12.5,373.6L9.0,358.3ZM571.5,348.5L572.6,351.3L572.8,352.3L571.5,348.5ZM571.4,345.2L571.3,347.9L570.7,343.9L571.4,345.2ZM558.4,321.8L555.7,317.7L559.1,322.3L558.4,321.8ZM4.3,326.6L9.3,308.3L11.0,309.4L13.0,304.9L16.8,300.5L9.0,315.1L5.6,326.1L4.3,326.6ZM558.2,312.6L558.7,312.7L557.9,313.1L558.2,312.6ZM17.5,300.2L21.9,289.8L24.2,288.5L24.4,291.0L17.5,300.2ZM40.6,280.2L29.9,286.1L24.9,291.0L26.0,286.1L29.6,285.0L36.9,279.8L39.6,279.6L41.0,277.3L40.6,280.2ZM45.6,275.1L42.3,276.8L47.6,273.4L45.6,275.1ZM555.2,263.5L556.3,263.1L556.0,263.9L555.2,263.5ZM556.0,261.7L555.2,260.9L556.0,261.3L556.0,261.7ZM247.4,249.5L248.2,249.8L245.9,249.4L247.4,249.5ZM254.4,249.2L257.1,248.9L252.5,250.3L254.4,249.2ZM263.9,249.5L262.0,248.8L265.8,249.9L263.9,249.5ZM270.6,248.7L268.2,249.5L269.5,248.5L270.6,248.7ZM542.6,246.1L541.6,246.2L541.8,245.4L542.6,246.1ZM89.4,248.2L100.2,238.6L100.0,236.9L104.0,238.0L89.4,248.2ZM280.3,242.0L282.9,241.2L280.1,242.9L280.3,242.0ZM264.5,241.0L264.9,241.3L264.3,242.5L264.5,241.0ZM283.6,240.3L284.0,239.8L284.5,239.8L283.6,240.3ZM281.6,233.1L277.4,231.9L276.7,230.8L279.0,230.8L281.6,233.1ZM312.7,230.8L311.9,232.1L310.4,232.2L311.7,231.8L312.7,230.8ZM315.6,229.8L316.7,228.3L316.9,228.3L315.6,229.8ZM208.8,224.9L211.5,225.2L217.0,227.8L214.5,231.3L212.3,231.7L204.9,227.5L208.8,224.9ZM320.0,224.9L319.6,225.4L319.5,225.4L320.0,224.9ZM465.4,223.1L464.2,225.4L460.8,223.0L463.5,222.7L465.4,223.1ZM469.1,226.5L466.9,226.5L465.2,225.7L469.2,225.9L480.3,219.8L469.1,226.5ZM321.1,223.7L323.4,220.5L322.9,221.5L321.1,223.7ZM300.3,218.6L302.2,219.0L302.7,220.8L301.5,219.6L300.3,221.0L300.3,218.6ZM307.9,219.6L306.1,218.1L306.1,217.8L308.4,217.8L307.9,219.6ZM483.4,218.8L481.4,219.3L484.6,217.6L483.4,218.8ZM324.2,219.7L325.6,212.7L323.5,207.5L325.6,210.7L325.8,213.5L325.4,217.0L324.2,219.7ZM309.0,212.3L309.8,213.0L307.6,213.2L309.0,212.3ZM308.3,211.4L306.4,213.5L308.6,210.8L308.3,211.4ZM310.4,208.6L305.9,207.2L311.9,202.9L309.4,205.7L310.7,207.5L311.7,206.6L311.5,207.9L310.4,208.6ZM302.7,204.0L302.2,204.2L302.7,203.7L302.7,204.0ZM320.8,201.0L320.0,201.0L321.5,200.8L320.8,201.0ZM340.3,200.9L337.4,200.9L337.4,200.5L340.3,200.9ZM315.6,201.8L313.0,200.3L313.0,200.1L316.5,199.1L315.6,201.8ZM327.9,199.5L336.1,200.5L335.4,200.9L327.9,199.5ZM352.2,198.3L352.8,199.7L344.6,200.1L352.2,198.3ZM382.7,196.0L404.9,192.5L411.7,193.1L384.7,196.3L382.7,196.0ZM603.1,169.2L601.6,176.4L601.4,179.5L600.3,173.2L603.1,169.2ZM607.4,150.7L609.9,145.9L611.2,145.6L611.2,147.9L608.9,151.7L607.4,150.7ZM522.7,536.1L518.6,538.7L514.2,537.9L509.0,538.7L507.5,540.3L507.3,543.3L506.2,543.5L506.5,544.7L507.8,544.5L505.5,549.1L501.7,548.2L497.3,549.6L488.8,555.6L486.8,554.9L488.5,549.9L487.7,548.7L481.5,549.6L474.7,553.3L470.7,551.8L471.4,549.5L473.4,550.6L474.5,548.4L475.4,549.6L486.8,543.9L488.9,545.0L491.8,543.9L493.8,545.7L495.4,545.0L495.9,542.8L494.7,544.4L493.1,541.6L493.6,540.4L489.6,537.3L491.6,531.0L494.7,526.0L498.1,524.1L498.2,521.4L500.8,522.0L503.4,517.9L505.5,517.4L503.6,516.6L504.4,515.7L506.9,517.1L511.1,514.4L519.3,512.5L523.7,509.1L525.8,509.8L527.4,508.0L529.0,509.1L531.4,506.0L535.2,503.8L537.1,504.5L537.4,506.9L537.8,504.8L541.4,503.1L543.7,503.1L543.6,504.6L545.1,505.0L546.8,502.6L559.7,501.6L566.0,497.7L573.0,495.7L580.0,495.5L586.4,497.6L596.9,497.3L598.7,498.5L598.5,501.9L600.7,499.7L611.2,496.0L608.0,498.4L611.2,501.1L611.1,543.4L609.7,539.6L606.1,542.2L604.7,541.6L603.9,538.8L599.1,537.3L597.3,538.4L594.4,536.9L588.4,538.2L585.7,535.0L575.5,530.0L575.3,528.6L576.8,527.8L587.2,527.9L594.4,525.5L594.6,521.8L585.8,517.4L577.6,518.4L573.8,517.1L557.5,517.4L552.8,516.3L551.3,519.8L541.6,525.4L537.5,531.7L534.0,531.6L529.7,537.2L524.4,538.0L522.7,537.3L522.7,536.1ZM611.1,136.9L608.5,135.8L611.2,138.5L606.2,145.1L606.4,148.4L605.0,149.6L606.5,153.3L600.3,152.5L606.5,154.7L608.7,157.1L604.3,162.0L603.1,161.7L602.9,158.8L601.6,159.3L602.0,162.5L600.3,163.2L602.6,164.9L603.7,162.9L603.5,164.0L602.9,166.9L599.5,164.0L601.9,167.1L599.2,169.0L601.9,169.5L599.8,172.8L600.3,174.4L598.8,174.4L600.3,177.6L600.0,180.4L602.7,181.3L602.3,188.0L600.4,183.9L600.0,186.8L603.4,190.8L607.7,214.4L611.2,224.9L611.2,396.3L610.0,396.3L608.3,390.4L605.3,388.3L606.6,387.0L603.9,384.2L600.6,382.1L596.6,381.9L595.4,380.2L591.2,381.3L590.8,379.7L592.7,380.4L593.8,378.7L591.2,377.9L589.2,372.1L588.7,373.8L586.7,359.1L585.7,357.1L585.4,359.2L581.0,358.0L580.9,357.0L584.5,354.5L585.6,351.7L589.5,347.9L584.8,350.9L583.0,355.1L579.8,355.8L578.8,354.4L578.2,348.5L579.2,342.7L577.6,339.7L582.1,336.1L575.5,339.0L574.5,337.1L572.9,337.4L571.0,335.3L574.5,339.9L575.6,344.2L575.0,344.9L574.6,343.3L573.8,344.2L569.5,342.3L568.4,338.7L567.4,337.5L568.2,339.9L567.4,339.3L563.7,331.7L562.6,327.1L560.2,324.4L560.2,323.4L561.0,324.1L559.8,319.4L555.1,316.8L553.9,314.4L556.6,316.6L556.4,314.1L559.1,314.9L557.4,313.9L559.5,312.9L558.8,311.7L566.7,301.9L564.4,296.8L563.2,297.8L563.2,301.5L561.5,301.3L561.0,296.3L558.2,295.6L558.8,294.6L555.3,292.4L555.3,295.2L557.1,295.3L554.3,297.0L560.2,298.8L558.6,299.7L557.8,305.9L556.7,306.8L550.7,301.0L553.6,305.4L554.3,308.3L549.3,299.4L552.5,289.5L551.7,285.9L556.3,275.1L557.5,264.5L555.6,260.2L557.6,261.0L557.5,256.7L554.0,253.7L551.2,244.7L542.2,244.4L540.6,240.5L537.8,239.1L535.1,234.0L528.6,229.6L528.9,224.4L523.3,221.4L518.2,213.3L505.4,205.5L499.6,206.9L498.4,205.4L491.6,208.9L493.2,211.3L489.2,209.8L489.9,211.5L493.4,212.2L493.6,213.1L492.2,214.7L492.6,213.9L491.2,213.4L487.2,213.2L473.0,221.3L473.5,218.2L468.5,221.9L455.7,223.5L454.1,221.9L453.3,216.2L453.8,215.3L454.6,221.4L456.8,222.9L457.5,218.5L455.4,214.7L449.2,210.8L447.6,208.6L450.7,210.7L443.3,204.3L445.9,204.7L445.9,205.4L452.2,209.1L454.0,207.6L452.6,207.0L451.4,208.5L450.4,205.4L449.5,205.4L450.2,204.1L447.3,205.2L441.7,201.8L447.9,198.0L446.8,196.3L442.2,199.6L440.5,196.6L436.7,198.8L440.5,200.3L442.2,203.5L441.7,204.3L428.8,197.1L412.1,192.8L418.2,193.4L419.5,191.6L422.2,193.4L422.0,191.7L427.2,193.7L426.0,189.7L424.4,190.3L423.4,188.8L415.9,190.6L414.8,190.0L415.7,188.2L414.0,189.0L412.9,188.0L413.0,189.8L408.7,192.4L401.8,192.3L386.4,194.9L396.0,190.8L397.8,191.5L393.2,188.5L395.2,186.3L392.7,184.5L390.9,191.1L389.7,187.4L387.0,185.4L387.9,190.1L381.5,196.6L373.9,198.3L377.0,196.8L375.6,196.3L377.9,195.7L377.8,194.2L380.8,192.0L380.2,190.5L377.8,189.7L379.0,191.1L375.9,194.9L372.8,196.6L370.8,194.9L371.1,197.1L372.5,196.8L371.6,198.4L364.3,200.1L355.1,200.5L358.6,198.8L360.9,199.8L365.1,198.2L362.6,194.7L363.0,193.0L360.8,193.6L359.3,192.2L358.5,189.0L359.6,185.4L358.4,182.3L356.1,181.1L355.9,179.5L355.1,179.0L351.1,196.6L348.9,195.8L349.2,194.5L344.9,193.1L341.1,193.7L338.7,196.4L335.3,195.4L334.1,193.4L331.4,195.1L328.4,195.1L321.5,191.4L319.4,192.3L324.1,192.8L309.2,196.6L309.4,195.4L306.7,194.0L305.4,194.9L306.8,195.6L306.7,196.9L303.0,199.1L302.2,202.0L299.1,201.8L296.4,203.5L296.4,202.1L290.9,202.0L290.6,200.0L282.4,198.8L279.0,194.9L274.1,193.5L266.0,200.8L264.9,204.0L267.0,206.6L275.7,209.0L281.4,207.8L285.7,203.5L289.1,205.8L291.1,202.6L290.9,205.8L293.2,204.1L292.2,203.2L293.7,203.1L294.8,204.1L291.8,208.6L288.7,207.9L287.2,210.2L288.3,212.2L292.2,211.8L291.4,213.2L293.8,215.2L296.1,214.6L297.5,209.9L299.9,208.7L300.5,206.8L302.7,208.3L305.0,207.9L302.5,208.9L301.7,211.0L304.9,212.0L302.5,213.0L303.3,214.1L304.9,213.4L304.0,215.0L306.3,215.0L304.5,217.0L305.9,218.7L304.2,218.5L303.3,219.8L303.4,218.7L300.6,217.0L298.8,220.2L296.1,221.1L296.8,223.0L299.1,223.1L300.6,225.4L292.4,222.2L295.5,225.7L290.3,225.4L291.7,225.8L293.3,229.8L299.1,232.2L298.6,235.3L306.1,235.6L304.5,236.7L308.1,236.9L309.6,238.7L311.4,237.1L314.5,240.9L313.3,242.0L316.1,243.4L317.6,242.9L318.4,244.7L315.6,244.7L315.0,245.8L317.9,245.8L316.4,248.3L315.0,246.9L315.6,248.7L314.8,247.8L313.1,250.0L313.3,252.4L309.5,247.5L309.4,249.3L307.2,249.8L303.3,255.0L308.4,245.2L307.3,246.6L306.7,244.3L306.1,247.6L304.4,248.3L300.6,241.7L301.7,241.5L300.2,241.0L300.2,242.3L294.0,239.3L288.0,238.7L290.9,236.4L289.7,236.0L289.7,234.3L287.5,233.7L288.2,232.0L287.0,231.7L286.5,233.3L283.4,232.5L277.5,229.1L276.4,230.0L274.4,227.6L273.3,230.3L280.3,233.9L279.4,234.9L279.8,237.7L279.0,236.9L280.6,239.4L278.7,238.9L278.9,240.0L277.6,240.0L278.0,242.5L279.4,242.3L277.0,245.9L272.1,248.1L271.0,244.9L271.7,241.0L270.5,242.1L268.1,239.0L266.4,241.7L266.3,238.9L264.5,236.9L263.2,239.8L258.6,239.1L259.3,242.3L257.9,241.7L257.3,246.1L256.3,245.1L255.1,246.9L252.8,247.1L251.0,246.6L252.1,244.9L249.6,244.3L248.1,246.4L245.4,244.2L243.3,244.3L244.2,243.2L243.2,242.6L240.8,243.7L233.1,241.0L231.5,239.5L231.1,237.7L232.8,238.4L235.4,236.0L235.7,237.6L237.7,237.7L237.9,241.5L239.6,240.6L239.2,237.8L233.9,232.2L235.2,226.4L234.0,226.2L232.5,231.7L227.8,230.0L227.7,228.2L222.8,229.3L222.7,225.0L219.7,225.3L219.9,220.8L211.2,221.3L211.4,218.5L212.7,219.1L212.0,217.1L206.9,217.0L201.2,221.0L201.0,219.8L198.7,219.8L199.7,222.7L202.4,222.2L201.0,223.0L202.2,225.9L205.3,225.7L203.7,226.1L203.8,227.3L194.5,229.6L180.6,226.6L161.3,219.5L147.8,219.9L137.6,222.5L135.2,218.8L139.4,216.0L140.2,211.6L136.7,210.5L133.6,218.1L136.6,222.9L135.9,223.6L127.4,223.8L106.7,233.0L102.7,236.6L101.9,235.4L105.0,232.5L109.4,230.0L112.4,229.9L113.1,228.2L102.0,229.7L105.2,222.7L103.8,219.1L100.2,219.7L98.9,223.3L96.7,224.4L91.7,220.5L91.3,222.0L94.3,223.6L92.8,229.2L97.1,231.1L95.1,232.2L95.9,234.2L96.9,233.4L100.5,236.3L98.0,236.1L97.0,238.7L93.8,240.0L89.4,244.7L87.4,243.2L87.8,250.0L80.0,256.7L69.6,262.7L58.0,265.0L58.5,267.7L66.8,263.9L62.3,266.8L48.0,273.4L56.8,268.2L56.6,266.8L47.7,269.3L51.1,267.6L48.1,267.6L49.2,264.9L46.5,265.0L43.3,267.3L41.8,265.4L41.9,263.3L39.6,261.9L40.3,264.2L41.4,264.1L40.6,266.9L42.3,267.6L40.2,269.0L37.7,269.6L39.6,268.9L39.5,267.3L38.0,268.3L37.6,266.8L35.4,266.8L34.1,263.7L31.8,263.3L33.7,270.1L37.5,271.7L35.7,274.2L38.6,273.2L41.1,275.7L31.8,280.5L30.0,279.8L29.6,277.2L26.1,274.0L27.5,276.7L24.6,276.5L26.9,280.0L26.9,283.8L23.3,287.6L20.9,288.6L22.1,282.9L19.4,288.5L18.0,288.1L18.2,285.2L14.7,287.5L12.2,287.3L12.9,288.3L10.6,290.8L12.5,291.6L13.2,293.7L14.8,291.0L17.2,289.0L17.9,289.8L17.8,292.4L11.8,300.8L10.1,301.3L8.7,299.0L-0.7,299.3L0.5,300.9L4.1,300.5L4.8,304.2L9.0,306.8L3.3,321.9L-1.5,323.8L1.4,321.5L0.3,321.2L0.5,319.2L-4.9,323.4L-10.3,316.3L-7.2,321.7L-7.9,322.4L-6.3,322.9L-7.5,323.9L-10.3,323.4L-9.8,324.2L-0.7,326.2L2.8,324.9L2.0,330.4L0.1,331.5L0.8,335.1L-2.4,336.2L-2.1,338.8L0.8,341.1L0.2,341.9L-1.8,340.2L-2.4,342.8L0.5,345.4L3.0,356.8L2.5,356.0L1.0,357.1L2.4,357.5L1.8,360.2L4.8,362.3L4.7,363.8L6.0,363.6L5.2,366.0L7.0,366.8L7.1,372.8L10.7,374.1L9.5,375.0L9.1,378.0L11.6,377.5L13.0,374.8L13.6,379.4L12.2,390.4L6.8,403.6L1.6,412.4L-5.7,440.3L-8.4,470.1L-11.2,470.9L-11.2,-12.6L611.2,-12.6L611.1,136.9ZM611.2,398.8L610.7,397.8L611.2,397.4L611.2,398.8ZM-11.0,471.1L-9.6,471.6L-9.8,476.5L-8.7,471.4L-8.3,472.9L-10.0,493.0L-9.1,505.1L-9.5,510.3L-9.5,507.2L-11.2,512.4L-11.0,471.1ZM-11.2,532.6L-9.8,541.9L-4.1,552.8L6.8,564.4L3.0,576.4L1.0,569.6L4.1,568.1L4.5,564.7L-4.6,554.5L-6.0,549.8L-10.6,541.9L-8.3,547.9L-6.5,559.6L-2.9,566.9L0.3,567.7L0.1,571.1L11.4,595.9L12.1,598.0L11.3,598.9L13.2,602.8L30.6,622.9L39.1,635.4L42.7,649.3L44.6,652.5L45.3,657.9L49.8,662.1L51.2,662.0L53.9,668.6L57.0,669.5L59.9,676.9L65.6,680.3L65.6,681.7L59.5,677.7L57.9,677.9L63.5,682.3L61.2,682.0L61.4,683.5L64.3,682.6L72.4,685.2L66.5,682.1L66.2,680.3L68.8,682.4L75.1,684.2L86.6,684.3L92.8,690.2L101.7,692.4L109.2,705.5L-11.2,705.5L-11.2,532.6ZM124.9,705.5L136.4,701.0L135.8,703.1L139.4,702.5L141.0,699.6L146.6,699.4L147.1,696.6L137.2,700.5L148.0,695.9L162.9,695.3L162.1,698.1L164.2,697.6L164.0,699.6L165.5,697.4L163.6,695.9L174.1,694.3L179.4,689.1L181.1,695.9L181.4,691.4L180.2,688.1L191.1,685.7L208.2,684.9L211.5,687.8L211.2,688.8L208.8,689.0L208.4,687.5L206.0,688.1L206.6,689.0L204.7,688.6L204.3,691.0L208.0,690.9L210.4,692.7L207.3,689.0L209.9,689.5L210.9,691.8L210.1,691.8L212.7,693.2L211.5,695.7L213.6,697.7L213.2,695.0L214.9,695.6L213.8,693.2L218.1,695.0L224.9,694.4L225.5,695.6L225.7,693.0L223.5,694.2L224.9,692.4L236.9,686.4L232.5,687.5L233.8,684.3L233.1,681.7L230.0,681.5L228.2,679.8L234.8,673.7L229.0,677.3L228.2,679.2L224.9,679.6L246.2,665.1L253.5,657.5L255.6,640.3L261.8,634.9L263.9,630.8L262.5,626.6L262.9,607.5L264.0,599.8L266.6,596.2L268.6,589.1L266.3,595.4L264.7,596.6L268.7,586.6L278.3,580.6L289.2,575.9L324.1,570.3L339.5,563.8L345.0,564.6L353.1,563.2L347.4,563.8L351.3,562.0L367.3,565.5L361.3,564.6L364.6,566.4L370.5,566.1L375.0,566.9L375.9,567.7L375.2,568.2L384.2,569.4L387.9,567.7L388.6,564.2L384.2,565.7L381.0,564.6L378.6,566.5L378.2,565.5L380.1,563.8L383.5,564.4L389.6,561.8L392.8,563.0L397.1,569.6L400.2,569.7L400.6,579.4L401.6,581.3L403.5,581.1L398.5,594.0L391.6,603.5L385.0,609.2L377.5,620.6L376.1,627.0L377.5,634.1L377.1,636.1L375.8,639.0L377.1,633.5L375.8,631.4L375.9,635.2L376.7,634.6L374.0,638.2L372.0,638.3L368.8,645.3L369.0,643.2L365.9,643.7L366.3,646.7L369.0,648.1L368.5,650.7L372.5,648.1L377.1,648.6L377.8,647.1L377.1,647.8L373.9,647.2L377.0,647.5L377.3,645.2L378.2,647.6L376.6,652.8L373.8,655.0L372.4,655.2L373.6,653.5L370.7,654.9L369.2,656.2L368.4,658.8L368.0,661.8L369.4,662.7L372.5,658.6L375.1,658.1L374.4,659.9L376.5,658.4L373.8,662.3L368.9,681.7L366.1,686.9L365.1,695.9L363.0,699.7L362.0,705.5L361.6,703.6L360.4,703.7L361.3,700.1L360.5,701.6L360.8,699.6L358.6,697.1L358.6,695.3L353.4,693.0L356.2,684.9L354.9,677.1L351.5,683.2L351.2,681.6L349.1,682.6L346.9,684.7L346.6,685.5L349.2,682.9L348.9,685.5L350.5,684.6L344.9,693.6L345.5,694.4L341.6,698.3L344.3,698.1L342.8,701.2L345.9,698.8L348.9,699.6L352.8,698.3L350.8,700.9L352.8,700.1L353.1,705.5L124.9,705.5Z","borders":"M13.6,379.4L6.4,380.7L5.1,384.5L-0.1,382.1L-5.3,377.0L-11.2,375.3M344.9,693.7L336.8,694.5L333.1,704.0L331.4,705.5M446.0,0.7L461.7,89.4L464.2,93.5L464.8,98.9L470.1,108.2L468.7,112.5L472.8,114.9L466.6,120.3L466.7,125.4L463.5,132.7L464.0,138.8L466.6,141.9L467.0,146.3L464.4,156.4L464.7,160.2L467.4,163.4L468.6,167.9M468.6,167.9L472.0,178.4L473.9,180.1L573.2,186.1L573.3,192.1L574.8,194.9L579.8,194.4L581.0,185.7L579.4,182.4L579.8,178.5L583.2,175.2L591.8,178.7L602.1,180.2M341.4,194.5L338.5,130.4L352.6,4.5L348.7,0.2M348.7,0.2L446.0,0.7M446.0,0.7L451.2,0.7L494.2,0.5M494.2,0.5L539.7,-0.0M539.7,-0.0L539.3,2.6L531.6,8.8L531.1,13.4L537.4,16.6L543.6,22.2L548.4,22.0L549.9,26.6L553.4,31.4L554.3,35.7L558.9,40.7L560.4,44.3L568.1,48.9L572.0,52.4L573.9,57.5L579.5,60.3L584.0,64.6L583.6,69.6L587.3,72.5L586.8,73.6L588.5,75.1L590.0,74.9L590.8,78.0L600.4,83.6L599.7,86.1L602.8,90.7L602.7,96.5L604.0,98.5L603.3,100.0L608.3,102.7L611.2,106.3M611.2,106.8L611.2,108.4M494.2,0.5L495.4,-9.4L498.4,-11.2L498.8,-10.2L502.5,-10.4L505.4,-12.6M611.2,-6.6L567.3,-7.6L566.6,-9.0L565.0,-7.2L560.5,-6.7L552.9,-2.8L551.9,-3.6L539.7,-0.0M114.9,-12.6L113.0,57.2M113.0,57.2L111.8,58.1L109.2,55.5L104.7,55.1L102.2,52.3L98.6,52.7L94.8,47.8L91.9,47.7L88.8,44.6L85.1,43.6L82.7,47.2L73.6,47.1L72.6,44.9L71.3,44.7L68.0,46.6L65.4,46.5L65.5,48.1L62.5,48.9L58.6,46.7L58.5,47.8L50.7,48.8L49.6,52.1L45.2,51.9L44.2,54.8L42.6,54.9L40.2,51.3L37.4,51.5L36.3,49.4L32.6,48.5L34.3,46.4L30.9,45.8L29.8,48.9L27.4,49.3L26.9,47.7L23.1,47.5L21.6,43.7L18.9,44.1L19.3,46.8L17.2,48.8L15.4,48.1L16.9,49.7L15.1,50.4L15.6,52.8L14.1,53.9L12.6,53.4L11.0,50.0L12.3,48.9L10.8,45.5L9.2,47.7L6.3,47.3L4.8,49.6L2.1,49.4L1.6,46.0L-2.2,46.3L-3.7,45.4L-3.3,44.0L-5.9,42.4L-11.2,46.8M113.0,57.2L114.1,56.9L114.1,58.9L116.8,59.5L116.5,60.8L117.8,61.2L120.0,59.8L122.8,60.8L124.3,59.1L126.6,60.8L129.6,60.8L129.7,83.2M129.7,83.2L129.7,126.3L134.7,130.5L137.9,135.4L138.7,138.7L137.2,142.8L139.2,145.8L141.0,146.0L140.6,148.3L143.4,151.3L143.0,155.0L145.4,156.6L146.2,160.7L148.8,160.2L148.0,163.9L149.3,167.0L147.6,167.7L149.1,170.9L147.5,173.1L148.0,175.3L141.0,187.3L142.6,191.5L140.1,196.0L142.2,197.8L141.7,201.2L142.9,204.0L141.3,206.5L142.5,207.2L133.9,218.5L137.4,223.0M276.0,-12.6L275.1,-12.4L275.6,-10.7L278.4,-9.4L276.8,-7.9L278.8,-5.8L275.9,-5.7L273.4,-1.1L270.1,-1.6L269.7,0.2M269.7,0.2L272.0,2.2L272.0,3.8L265.4,7.0L264.8,4.8L263.3,4.8L264.3,10.9L262.4,11.6L262.0,8.3L260.7,9.3L260.8,12.5L263.5,12.6L263.8,13.7L261.9,15.5L260.4,14.8L260.5,13.1L259.2,13.8L260.9,19.3L259.2,21.2L260.0,24.1L256.6,26.2L256.6,28.5L255.3,28.4L255.7,26.5L253.1,26.5L252.4,27.5L253.5,29.1L250.0,30.7L249.5,33.3L247.3,31.8L246.1,32.8L251.0,35.2L249.2,36.2L247.1,35.0L245.4,36.2L248.5,38.8L247.5,41.0L244.2,41.2L245.2,42.8L243.7,43.4L243.0,41.9L240.9,42.7L240.5,43.7L243.4,45.0L241.0,47.8L244.1,50.7L242.8,51.9L238.4,51.3L238.3,53.5L241.4,53.9L242.5,55.7L240.9,56.4L237.8,54.3L235.5,54.9L235.2,55.9L238.8,58.9L235.1,60.4L236.8,62.7L234.9,65.6L237.4,65.0L237.2,63.1L239.1,64.1L238.6,66.1L235.9,67.1L237.2,68.0L239.5,67.5L240.9,64.8L241.5,66.0L238.4,69.2L238.4,71.5L240.1,74.0L240.5,72.5L242.1,72.8L240.3,74.7L240.2,78.3L236.8,78.0L236.2,79.4L239.3,81.7L237.5,83.8M237.5,83.8L129.7,83.2M468.6,167.9L371.3,168.1L370.2,174.4L373.7,178.8L378.6,181.7L379.0,184.1L376.9,187.8L377.4,189.8L380.0,191.6L377.6,192.9L375.3,196.4L376.3,197.3L374.3,198.2M269.7,0.2L348.7,0.2M299.0,202.4L295.7,200.6L293.1,191.0L290.3,188.8L286.8,182.2L288.1,179.0L287.6,177.7L291.5,169.2L290.5,167.9L219.9,168.0L222.6,165.2L220.4,163.4L221.6,160.7L219.7,156.8L224.4,156.3L224.7,154.7L222.0,151.2L223.2,149.8L224.9,152.6L226.1,152.4L224.2,146.0L228.5,144.1L227.9,142.9L225.5,143.4L224.3,142.3L225.0,140.9L228.8,141.9L228.9,138.1L234.0,136.0L230.1,135.6L231.0,132.2L232.7,131.8L233.9,134.0L233.7,132.2L237.0,129.4L236.7,127.6L240.2,126.2L240.2,124.4L237.6,123.5L238.3,122.6L240.1,124.0L243.6,119.4L241.5,118.5L241.8,120.8L237.5,120.4L237.8,117.5L242.3,115.8L244.2,116.9L244.6,113.5L246.3,113.8L248.4,110.9L244.0,111.1L245.0,108.3L244.0,107.0L242.6,107.8L239.5,106.0L239.9,103.9L244.2,105.4L240.7,102.6L243.7,100.2L242.8,98.8L241.9,100.5L238.4,100.9L238.0,99.0L241.7,95.5L237.5,94.4L237.6,91.9L241.4,87.2L240.2,84.6L238.7,84.8L238.8,87.2L237.0,88.1L235.8,87.4L237.5,83.8","places":[{"name":"Houston","lat":29.76,"lon":-95.37},{"name":"New Orleans","lat":29.95,"lon":-90.07,"anchor":"end","dx":-6},{"name":"Tallahassee","lat":30.44,"lon":-84.28},{"name":"Mérida","lat":20.97,"lon":-89.62}]},"local":{"lon0":-88.45,"lat1":31.1,"cos":0.86295,"S":365.9397,"W":600,"H":549,"land":"M5.3,326.0L-15.8,323.6L-15.8,320.5L7.6,323.5L5.3,326.0ZM120.2,311.1L113.3,313.0L44.0,316.1L48.5,313.0L77.0,308.1L99.7,307.4L107.7,301.3L120.2,308.1L120.2,311.1ZM432.8,272.2L451.0,265.4L472.6,265.4L491.9,258.6L511.2,258.6L545.3,253.7L552.2,250.6L554.4,253.1L565.8,250.6L609.0,255.5L606.7,257.4L603.3,258.0L596.5,255.5L381.6,283.3L364.6,280.9L370.3,279.0L395.3,278.4L432.8,272.2ZM612.4,253.1L613.6,250.6L615.8,251.5L615.8,255.4L612.4,253.1ZM615.8,230.2L602.2,233.9L598.8,239.5L594.2,240.7L587.4,239.5L587.4,246.9L584.0,249.4L559.0,248.1L532.8,250.6L526.0,248.1L519.2,251.8L510.1,253.1L493.1,253.1L444.2,259.9L412.3,268.5L396.4,271.0L397.6,266.7L399.8,264.8L414.6,258.6L432.8,253.7L451.0,253.7L456.7,252.4L477.1,235.8L491.9,241.9L491.9,238.2L488.5,233.9L481.7,230.2L465.8,226.5L462.4,219.1L455.5,217.2L453.3,215.4L454.4,206.7L460.1,202.4L470.3,198.1L470.3,196.2L468.0,192.5L462.4,196.8L455.5,184.5L448.7,180.1L451.0,186.9L451.0,190.7L443.0,212.9L438.5,221.5L436.2,233.9L433.9,238.2L428.3,238.2L427.1,233.9L427.1,227.7L429.4,222.8L423.7,206.1L416.9,205.5L418.0,198.1L413.5,196.8L408.9,190.0L405.5,187.6L401.0,188.8L399.8,192.5L402.1,208.6L407.8,217.8L410.1,224.6L408.9,229.0L401.0,243.2L398.7,243.2L398.7,241.9L396.4,240.7L394.1,249.4L388.5,251.2L380.5,251.8L374.8,255.5L373.7,259.2L374.8,268.5L373.7,271.6L371.4,273.5L360.0,275.9L361.2,282.1L354.4,285.8L308.9,295.1L303.2,298.2L300.9,297.6L290.7,300.6L290.7,298.2L294.1,296.9L300.9,290.8L316.8,287.7L305.5,283.3L310.0,281.5L316.8,282.1L321.4,280.9L324.8,278.4L327.1,274.7L327.1,271.0L323.7,267.9L323.7,265.4L332.8,254.3L338.4,250.0L346.4,248.1L348.7,246.3L347.5,236.4L344.1,233.3L341.9,232.1L336.2,233.3L332.8,232.1L323.7,225.9L323.7,227.7L325.9,231.4L333.9,238.2L331.6,238.2L331.6,241.3L318.0,254.3L312.3,266.7L307.7,271.0L295.2,275.3L289.6,284.0L281.6,285.8L277.0,284.6L273.6,278.4L266.8,271.0L264.5,271.0L265.7,276.5L269.1,284.6L266.8,290.8L273.6,290.8L279.3,287.7L271.4,301.9L250.9,310.5L210.0,316.1L170.2,316.1L142.9,320.4L132.7,320.4L136.1,316.7L142.9,313.6L155.4,311.1L158.8,309.3L160.0,306.8L162.2,305.6L169.0,311.8L181.6,314.2L207.7,306.2L216.8,300.0L212.2,287.7L197.5,274.1L195.2,269.1L198.6,257.4L198.6,254.3L194.1,251.8L189.5,258.6L189.5,261.1L180.4,259.9L174.7,256.8L167.9,247.5L166.8,235.1L161.1,225.9L161.1,219.7L170.2,201.8L171.3,196.2L170.2,188.8L160.0,161.0L156.5,156.7L149.7,153.0L142.9,152.3L140.6,151.1L139.5,146.8L139.5,136.9L137.2,133.2L132.7,132.6L134.9,137.5L134.9,143.1L132.7,147.4L128.1,150.5L130.4,155.4L125.8,162.8L123.6,169.0L123.6,176.4L122.4,181.4L115.6,191.9L115.6,201.8L111.1,211.7L106.5,237.0L107.7,251.8L104.2,279.0L102.0,283.3L98.6,285.8L96.3,280.9L83.8,280.3L80.4,279.0L82.6,267.9L73.6,264.2L54.2,259.9L46.3,255.5L44.0,262.9L41.7,262.9L36.0,254.9L30.4,254.9L22.4,258.6L14.4,260.5L13.3,262.3L13.3,271.0L6.5,273.5L0.8,280.9L-6.0,284.0L-15.8,278.8L-15.8,-18.3L615.8,-18.3L615.8,230.2Z","borders":"M17.2,267.4L13.8,197.6L10.4,85.3L5.1,-18.3M615.8,39.1L457.0,36.9L268.8,37.6L272.2,49.5L257.5,85.7L259.7,92.9L285.8,117.7L289.2,130.6L330.0,155.8L333.4,177.4L316.4,209.5L319.8,226.8L342.5,242.8L322.1,253.8L313.0,279.6L302.8,284.3L310.7,291.9L293.7,300.0","places":[{"name":"Mobile","lat":30.695,"lon":-88.043},{"name":"Fairhope","lat":30.523,"lon":-87.903},{"name":"Foley","lat":30.406,"lon":-87.684},{"name":"Pensacola","lat":30.421,"lon":-87.217}]}}</script>
+
+<!-- STORM DATA: each update replaces only the JSON between these script tags. -->
+<script id="storm-data" type="application/json">
+{
+  "storm": "Isaias",
+  "updated": "Wed Oct 7, 9:55 PM CDT (10:55 PM ET)",
+  "advisory": "NHC Advisory 5A, 7 PM CDT",
+  "next_advisory": "10 PM CDT Wed, then about every 6 hours",
+  "chips": [
+    {
+      "label": "Hurricane Watch",
+      "level": "hu-watch"
+    },
+    {
+      "label": "Storm Surge Watch",
+      "level": "hu-watch"
+    },
+    {
+      "label": "Voluntary evacuation",
+      "level": "ts-watch"
+    }
+  ],
+  "headline": "Isaias is forecast to come ashore Friday night about 14 miles east of the condo as a Category 1-2 hurricane.",
+  "stats": [
+    {
+      "label": "Storm now",
+      "value": "594 mi",
+      "note": "south-southwest of the condo"
+    },
+    {
+      "label": "Est. landfall",
+      "value": "14 mi E",
+      "note": "near Perdido Key, Fri ~10 PM"
+    },
+    {
+      "label": "At landfall",
+      "value": "Cat 1–2",
+      "note": "peak ~110 mph Fri afternoon"
+    }
+  ],
+  "distance": {
+    "caption": "How far the center is from the condo, now and along the NHC forecast track. Central time.",
+    "rows": [
+      {
+        "when": "Now · Wed 7 PM",
+        "miles": 594,
+        "dir": "SSW"
+      },
+      {
+        "when": "Thu 1 AM",
+        "miles": 558,
+        "dir": "SSW"
+      },
+      {
+        "when": "Thu 1 PM",
+        "miles": 452,
+        "dir": "SSW"
+      },
+      {
+        "when": "Fri 1 AM",
+        "miles": 315,
+        "dir": "SSW"
+      },
+      {
+        "when": "Fri 1 PM",
+        "miles": 149,
+        "dir": "S"
+      },
+      {
+        "when": "Fri ~10 PM landfall",
+        "miles": 14,
+        "dir": "E",
+        "key": true
+      },
+      {
+        "when": "Sat 1 AM",
+        "miles": 54,
+        "dir": "NNE"
+      },
+      {
+        "when": "Sat 1 PM",
+        "miles": 258,
+        "dir": "N"
+      }
+    ]
+  },
+  "facts": [
+    {
+      "label": "Strength now",
+      "value": "Tropical storm, 65 mph winds. Strengthening fast (40 mph to 65 mph in about 15 hours). Expected to become a hurricane by Thursday morning."
+    },
+    {
+      "label": "Moving",
+      "value": "East-northeast at 8 mph. Turns north Thursday and Friday and speeds up."
+    },
+    {
+      "label": "Which side we're on",
+      "value": "The condo is on the west side of the forecast path. That side usually gets less wind and surge, but 14 miles is close enough for hurricane-force winds.",
+      "tone": "warn"
+    },
+    {
+      "label": "Storm surge",
+      "value": "5–7 ft of water above normally dry ground from Ocean Springs, MS to Indian Pass, FL, including Orange Beach (NHC).",
+      "tone": "bad"
+    },
+    {
+      "label": "Size",
+      "value": "Growing. Tropical-storm winds reach about 60 miles from the center now and about 90–160 miles by Friday."
+    },
+    {
+      "label": "Rain & tornadoes",
+      "value": "3–7 inches of rain, locally 10. Tornadoes possible Friday night and Saturday."
+    },
+    {
+      "label": "Local actions",
+      "value": "Baldwin County state of emergency. Voluntary evacuation for coastal and low-lying areas. Shelter opens Thursday 3 PM in Robertsdale. County offices closed Friday.",
+      "tone": "warn"
+    },
+    {
+      "label": "How sure",
+      "value": "Moderate. Two-day forecasts are typically off by 60–70 miles, so landfall anywhere from the Mississippi coast to Destin is still possible."
+    }
+  ],
+  "timeline": [
+    {
+      "when": "Thu morning",
+      "what": "Becomes a hurricane over the Gulf. Rip currents build along the beaches."
+    },
+    {
+      "when": "Thu",
+      "what": "Watches likely upgraded to warnings. County shelter opens at 3 PM."
+    },
+    {
+      "when": "Fri midday",
+      "what": "Tropical-storm winds reach the coast. Anything at the condo needs to be done by Friday morning."
+    },
+    {
+      "when": "Fri evening",
+      "what": "Hurricane conditions possible. Highest storm surge."
+    },
+    {
+      "when": "Fri ~10 PM to early Sat",
+      "what": "Landfall, estimated near Perdido Key, about 14 miles east of the condo.",
+      "key": true
+    },
+    {
+      "when": "Sat",
+      "what": "Center moves north through Alabama and weakens. Heavy rain moves inland."
+    }
+  ],
+  "condo": [
+    "Unit 1102 is on the 11th floor, so surge won't reach it. But it can flood the ground floor, parking, and elevator and power rooms, and it can close Perdido Beach Blvd.",
+    "Winds are stronger up high. Balcony furniture needs to come inside, and the sliding door latch issue matters because a door that doesn't fully latch can leak or blow open.",
+    "If the path shifts 20–30 miles west, the condo ends up on the stronger east side of the storm."
+  ],
+  "changes": [
+    "First update."
+  ],
+  "history": [
+    {
+      "when": "Tue Oct 6, 4 PM",
+      "what": "National Hurricane Center starts advisories on Isaias in the southern Gulf."
+    },
+    {
+      "when": "Wed Oct 7, 4 AM",
+      "what": "Tropical storm, 40 mph."
+    },
+    {
+      "when": "Wed Oct 7",
+      "what": "Hurricane Watch and Storm Surge Watch issued for the coast, including Orange Beach. Baldwin County declares a state of emergency."
+    },
+    {
+      "when": "Wed Oct 7, 7 PM",
+      "what": "65 mph and strengthening. Forecast path nudged slightly east."
+    }
+  ],
+  "sources": [
+    {
+      "title": "National Hurricane Center – Isaias",
+      "url": "https://www.nhc.noaa.gov/"
+    },
+    {
+      "title": "NHC – official forecast cone graphic",
+      "url": "https://www.nhc.noaa.gov/graphics_at4.shtml?cone#contents"
+    },
+    {
+      "title": "FOX10 – Isaias strengthens in Gulf",
+      "url": "https://www.fox10tv.com/2026/10/07/isaias-strengthening-mobile-pensacola-braces-significant-friday/"
+    },
+    {
+      "title": "FOX10 – Baldwin County declares state of emergency",
+      "url": "https://www.fox10tv.com/2026/10/07/baldwin-county-declares-state-emergency-isaias-nears-gulf-coast/"
+    },
+    {
+      "title": "AccuWeather – Isaias forecast",
+      "url": "https://www.accuweather.com/en/hurricane/tropical-storm-isaias-forms-in-gulf-to-become-atlantics-first-hurricane-before-striking-us/1942566"
+    }
+  ],
+  "map": {
+    "caption": "Drawn from the National Hurricane Center forecast issued 4 PM CDT Wednesday (Advisory 5). Times are Central.",
+    "gulf_caption": "The whole Gulf. Letters show forecast strength at each point. Gray dashes show where Isaias has already been.",
+    "local_caption": "Close-up of the coast (this whole area is inside the cone). Estimated landfall is about 14 miles east of our condo. The red dashed circle shows roughly how far hurricane-force winds reach from the center.",
+    "official_url": "https://www.nhc.noaa.gov/graphics_at4.shtml?cone#contents",
+    "condo": {
+      "lat": 30.26144,
+      "lon": -87.61406
+    },
+    "past": [
+      [
+        22.0,
+        -94.1
+      ],
+      [
+        22.7,
+        -92.9
+      ]
+    ],
+    "track": [
+      {
+        "h": 0,
+        "lat": 22.7,
+        "lon": -92.9,
+        "when": "Wed 4 PM",
+        "mph": 65,
+        "type": "S",
+        "cone": 0
+      },
+      {
+        "h": 12,
+        "lat": 23.1,
+        "lon": -91.8,
+        "when": "Thu 1 AM",
+        "mph": 80,
+        "type": "H",
+        "cone": 25
+      },
+      {
+        "h": 24,
+        "lat": 24.1,
+        "lon": -90.1,
+        "when": "Thu 1 PM",
+        "mph": 90,
+        "type": "H",
+        "cone": 39
+      },
+      {
+        "h": 36,
+        "lat": 25.8,
+        "lon": -88.7,
+        "when": "Fri 1 AM",
+        "mph": 105,
+        "type": "H",
+        "cone": 49
+      },
+      {
+        "h": 48,
+        "lat": 28.1,
+        "lon": -87.6,
+        "when": "Fri 1 PM",
+        "mph": 110,
+        "type": "H",
+        "cone": 62
+      },
+      {
+        "h": 60,
+        "lat": 31.0,
+        "lon": -87.3,
+        "when": "Sat 1 AM",
+        "mph": 70,
+        "type": "S",
+        "cone": 77
+      },
+      {
+        "h": 72,
+        "lat": 34.0,
+        "lon": -87.5,
+        "when": "Sat 1 PM",
+        "mph": 35,
+        "type": "L",
+        "cone": 95
+      },
+      {
+        "h": 96,
+        "lat": 37.5,
+        "lon": -84.5,
+        "when": "Sun 1 PM",
+        "mph": 15,
+        "type": "L",
+        "cone": 134
+      }
+    ],
+    "landfall": {
+      "lat": 30.27,
+      "lon": -87.376,
+      "label": "Est. landfall Fri ~10 PM"
+    },
+    "hurricane_wind_mi": 30
+  }
+}
+</script>
+
+<script>
+(function () {
+  var app = document.getElementById('app');
+  var d;
+  try { d = JSON.parse(document.getElementById('storm-data').textContent); }
+  catch (e) { app.innerHTML = '<p>This update could not be displayed. Check nhc.noaa.gov for the official forecast.</p>'; return; }
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function section(title, lede) {
+    var s = el('section');
+    s.appendChild(el('h2', null, title));
+    if (lede) s.appendChild(el('p', 'lede', lede));
+    app.appendChild(s);
+    return s;
+  }
+  app.textContent = '';
+
+  // Header
+  var head = el('header', 'head');
+  head.appendChild(el('p', 'eyebrow', 'Storm ' + d.storm + ' · Romar Place #1102, Orange Beach'));
+  var chips = el('div', 'chips');
+  (d.chips || []).forEach(function (c) { chips.appendChild(el('span', 'chip ' + (c.level || ''), c.label)); });
+  head.appendChild(chips);
+  head.appendChild(el('h1', null, d.headline));
+  head.appendChild(el('p', 'updated', 'Updated ' + d.updated + ' from ' + d.advisory + '. Next forecast: ' + d.next_advisory + '.'));
+  app.appendChild(head);
+
+  // Three numbers
+  var stats = el('div', 'stats');
+  (d.stats || []).forEach(function (s) {
+    var b = el('div', 'stat');
+    b.appendChild(el('span', 'k', s.label));
+    b.appendChild(el('span', 'v', s.value));
+    b.appendChild(el('span', 'n', s.note));
+    stats.appendChild(b);
+  });
+  app.appendChild(stats);
+
+  // Maps: forecast cone and path, drawn from NHC forecast points on a fixed base map
+  var base = null;
+  try { base = JSON.parse(document.getElementById('base-map').textContent); } catch (e) {}
+  if (base && d.map && d.map.track && d.map.track.length) {
+    var NS = 'http://www.w3.org/2000/svg';
+    var sv = function (tag, attrs, parent, text) {
+      var n = document.createElementNS(NS, tag);
+      for (var k in attrs) n.setAttribute(k, attrs[k]);
+      if (text != null) n.textContent = text;
+      if (parent) parent.appendChild(n);
+      return n;
+    };
+    var drawMap = function (v, opts) {
+      var P = function (lat, lon) { return [(lon - v.lon0) * v.cos * v.S, (v.lat1 - lat) * v.S]; };
+      var nmPx = function (nm) { return nm / 60 * v.S; };
+      var svg = sv('svg', { viewBox: '0 0 ' + v.W + ' ' + v.H, role: 'img', 'aria-label': opts.aria });
+      var clipId = 'clip-' + opts.id;
+      var defs = sv('defs', {}, svg);
+      var cp = sv('clipPath', { id: clipId }, defs);
+      sv('rect', { x: 0, y: 0, width: v.W, height: v.H }, cp);
+      var g = sv('g', { 'clip-path': 'url(#' + clipId + ')' }, svg);
+      sv('rect', { x: 0, y: 0, width: v.W, height: v.H, 'class': 'm-water' }, g);
+      sv('path', { d: v.land, 'class': 'm-land' }, g);
+      sv('path', { d: v.borders, 'class': 'm-border' }, g);
+      // Cone: union of circles along the track (outline-then-fill draws only the outer edge)
+      var T = d.map.track, circles = [];
+      for (var i = 0; i < T.length - 1; i++) {
+        var a = T[i], b = T[i + 1], steps = 30;
+        for (var s = 0; s <= steps; s++) {
+          var f = s / steps;
+          circles.push([a.lat + (b.lat - a.lat) * f, a.lon + (b.lon - a.lon) * f, (a.cone || 0) + ((b.cone || 0) - (a.cone || 0)) * f]);
+        }
+      }
+      var cone = sv('g', { 'class': 'm-cone' }, opts.local ? null : g);
+      var ce = sv('g', { 'class': 'edge' }, cone), cf = sv('g', { 'class': 'fill' }, cone);
+      circles.forEach(function (c) {
+        var p = P(c[0], c[1]), r = Math.max(nmPx(c[2]), 1);
+        sv('circle', { cx: p[0].toFixed(1), cy: p[1].toFixed(1), r: r.toFixed(1) }, ce);
+        sv('circle', { cx: p[0].toFixed(1), cy: p[1].toFixed(1), r: r.toFixed(1) }, cf);
+      });
+      // Places
+      (v.places || []).forEach(function (pl) {
+        var p = P(pl.lat, pl.lon);
+        sv('circle', { cx: p[0], cy: p[1], r: 2.5, 'class': 'm-place-dot' }, g);
+        sv('text', { x: p[0] + (pl.dx || 6), y: p[1] + (pl.dy || 4), 'class': 'm-place', 'text-anchor': pl.anchor || 'start' }, g, pl.name);
+      });
+      // Past and forecast track
+      if (d.map.past && d.map.past.length > 1) {
+        sv('path', { d: 'M' + d.map.past.map(function (q) { return P(q[0], q[1]).map(function (n) { return n.toFixed(1); }).join(','); }).join('L'), 'class': 'm-past' }, g);
+      }
+      sv('path', { d: 'M' + T.map(function (q) { return P(q.lat, q.lon).map(function (n) { return n.toFixed(1); }).join(','); }).join('L'), 'class': 'm-track' }, g);
+      if (opts.local) {
+        var lf = d.map.landfall, cd = d.map.condo;
+        if (lf && d.map.hurricane_wind_mi) {
+          var lp = P(lf.lat, lf.lon), rr = d.map.hurricane_wind_mi / 69.05 * v.S;
+          sv('circle', { cx: lp[0], cy: lp[1], r: rr, 'class': 'm-wind' }, g);
+          sv('text', { x: lp[0], y: lp[1] + rr + 18, 'class': 'm-wind-label', 'text-anchor': 'middle' }, g, 'Hurricane-force winds (est.)');
+        }
+        if (lf && cd) {
+          var a1 = P(cd.lat, cd.lon), b1 = P(lf.lat, lf.lon);
+          sv('line', { x1: a1[0], y1: a1[1], x2: b1[0], y2: b1[1], 'class': 'm-dist' }, g);
+        }
+        if (lf) {
+          var lp2 = P(lf.lat, lf.lon);
+          sv('circle', { cx: lp2[0], cy: lp2[1], r: 7, 'class': 'm-landfall' }, g);
+          sv('text', { x: lp2[0] + 10, y: lp2[1] + 26, 'class': 'm-wind-label' }, g, lf.label);
+        }
+      }
+      // Forecast points with NHC intensity letters
+      T.forEach(function (q, idx) {
+        var p = P(q.lat, q.lon);
+        if (p[0] < -20 || p[0] > v.W + 20 || p[1] < -20 || p[1] > v.H + 20) return;
+        var pt = sv('g', { 'class': 'm-pt' }, g);
+        sv('circle', { cx: p[0], cy: p[1], r: 10 }, pt);
+        sv('text', { x: p[0], y: p[1] }, pt, q.type);
+        if (!opts.local || idx > 0) {
+          var first = idx === 0;
+          sv('text', { x: p[0] + (first ? -15 : 15), y: p[1] + 5, 'class': 'm-when', 'text-anchor': first ? 'end' : 'start' }, g, q.when + (q.mph ? ' · ' + q.mph + ' mph' : ''));
+        }
+      });
+      // Condo
+      if (d.map.condo) {
+        var cp2 = P(d.map.condo.lat, d.map.condo.lon), cg = sv('g', { 'class': 'm-condo' }, g);
+        sv('circle', { cx: cp2[0], cy: cp2[1], r: opts.local ? 8 : 6 }, cg);
+        sv('text', { x: cp2[0] - 12, y: cp2[1] + (opts.local ? -12 : -10), 'text-anchor': 'end' }, cg, 'Our condo');
+      }
+      return svg;
+    };
+    var ms = section('Forecast path and cone', d.map.caption);
+    var wrapMaps = el('div', 'maps');
+    [['gulf', 'Gulf of Mexico forecast cone and path for ' + d.storm, false, d.map.gulf_caption],
+     ['local', 'Close-up of the forecast landfall area near Orange Beach', true, d.map.local_caption]].forEach(function (m) {
+      if (!base[m[0]]) return;
+      var fig = el('figure');
+      fig.appendChild(drawMap(base[m[0]], { id: m[0], aria: m[1], local: m[2] }));
+      var cap = el('figcaption');
+      cap.textContent = m[3] || '';
+      fig.appendChild(cap);
+      wrapMaps.appendChild(fig);
+    });
+    ms.appendChild(wrapMaps);
+    var lg = el('div', 'legend');
+    [['M', 'major hurricane, 111+ mph'], ['H', 'hurricane, 74–110 mph'], ['S', 'tropical storm, 39–73 mph'], ['D', 'depression'], ['L', 'post-tropical low']].forEach(function (x) {
+      var s = el('span'); s.appendChild(el('b', null, x[0])); s.appendChild(document.createTextNode(' ' + x[1])); lg.appendChild(s);
+    });
+    ms.appendChild(lg);
+    if (d.map.official_url) {
+      var op = el('p', 'lede');
+      op.appendChild(document.createTextNode('The shaded cone shows where the center will probably travel (about 2 out of 3 times). Damaging wind, surge and rain often reach well outside it. '));
+      var oa = el('a', null, 'See the official NHC cone graphic');
+      oa.href = d.map.official_url; oa.target = '_blank'; oa.rel = 'noopener';
+      op.appendChild(oa);
+      op.appendChild(document.createTextNode('.'));
+      ms.appendChild(op);
+    }
+  }
+
+  // Distance bars
+  if (d.distance && d.distance.rows && d.distance.rows.length) {
+    var ds = section('Distance from the condo', d.distance.caption);
+    var max = Math.max.apply(null, d.distance.rows.map(function (r) { return r.miles; }));
+    var bars = el('div', 'bars');
+    d.distance.rows.forEach(function (r) {
+      var row = el('div', 'bar-row' + (r.key ? ' key' : ''));
+      row.appendChild(el('span', 't', r.when));
+      var tr = el('div', 'track');
+      var f = el('span', 'fill');
+      f.style.width = 'calc((100% - 6.5em) * ' + (r.miles / max).toFixed(4) + ')';
+      tr.appendChild(f);
+      tr.appendChild(el('span', 'val', r.miles + ' mi ' + (r.dir || '')));
+      row.appendChild(tr);
+      bars.appendChild(row);
+    });
+    ds.appendChild(bars);
+  }
+
+  // At a glance
+  var fs = section('At a glance');
+  var dl = el('dl', 'facts');
+  (d.facts || []).forEach(function (f) {
+    var w = el('div', 'fact' + (f.tone ? ' ' + f.tone : ''));
+    w.appendChild(el('dt', null, f.label));
+    w.appendChild(el('dd', null, f.value));
+    dl.appendChild(w);
+  });
+  fs.appendChild(dl);
+
+  // Timeline
+  var ts = section('What to expect', 'Forecast times are Central (condo time). Eastern is one hour later.');
+  var ol = el('ol', 'timeline');
+  (d.timeline || []).forEach(function (t) {
+    var li = el('li', t.key ? 'key' : '');
+    li.appendChild(el('span', 'when', t.when));
+    li.appendChild(el('span', null, t.what));
+    ol.appendChild(li);
+  });
+  ts.appendChild(ol);
+
+  // Condo
+  var cs = section('What it means for our condo');
+  var note = el('div', 'note');
+  var ul = el('ul', 'plain');
+  (d.condo || []).forEach(function (c) { ul.appendChild(el('li', null, c)); });
+  note.appendChild(ul);
+  cs.appendChild(note);
+
+  // Changes
+  var ch = section('What changed since the last update');
+  var cl = el('ul', 'plain');
+  (d.changes || []).forEach(function (c) { cl.appendChild(el('li', null, c)); });
+  ch.appendChild(cl);
+
+  // History
+  var hs = section('Storm history');
+  var hl = el('dl', 'history');
+  (d.history || []).forEach(function (h) {
+    var w = el('div');
+    w.appendChild(el('dt', null, h.when));
+    w.appendChild(el('dd', null, h.what));
+    hl.appendChild(w);
+  });
+  hs.appendChild(hl);
+
+  // Footer
+  var ft = el('footer');
+  ft.appendChild(el('p', null, 'This page is a summary Claude puts together for our family about every 6 hours. It is not an official forecast. For decisions, follow the National Hurricane Center and Baldwin County / City of Orange Beach officials.'));
+  var sl = el('ul', 'sources');
+  (d.sources || []).forEach(function (s) {
+    var li = el('li');
+    var a = el('a', null, s.title);
+    a.href = s.url; a.target = '_blank'; a.rel = 'noopener';
+    li.appendChild(a);
+    sl.appendChild(li);
+  });
+  ft.appendChild(sl);
+  app.appendChild(ft);
+})();
+</script>
+
+</body>
+</html>
