@@ -153,7 +153,7 @@ footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-t
 <script id="storm-data" type="application/json">
 {
   "storm": "Isaias",
-  "updated": "Thu Oct 8, 1:25 PM CDT (2:25 PM ET). The storm's position is from NHC's 1 PM brief update (Advisory 8A; strength and warnings unchanged). The forecast path is still",
+  "updated": "Thu Oct 8, 2:25 PM CDT (3:25 PM ET), after a check of local notices. The storm's position is from NHC's 1 PM brief update (Advisory 8A; strength and warnings unchanged). The forecast path is still",
   "advisory": "NHC's 10 AM CDT Thursday forecast (Advisory 8)",
   "next_advisory": "the full forecast at 4 PM CDT Thu (Advisory 9), then a brief update at 7 PM",
   "chips": [
@@ -164,6 +164,10 @@ footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-t
     {
       "label": "Storm Surge Warning",
       "level": "hu-warning"
+    },
+    {
+      "label": "Flood Watch from Fri 1 PM",
+      "level": "ts-watch"
     },
     {
       "label": "Voluntary evacuation",
@@ -252,7 +256,7 @@ footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-t
     {
       "label": "Storm surge",
       "tone": "bad",
-      "value": "5–7 ft of water above normally dry ground from Ocean Springs, MS to Indian Pass, FL, including Orange Beach and Mobile Bay (NHC, unchanged). A Storm Surge Warning is in effect. The deepest water is expected near and east of where the center comes ashore."
+      "value": "5–7 ft of water above normally dry ground from Ocean Springs, MS to Indian Pass, FL, including Orange Beach and Mobile Bay (NHC, unchanged). A Storm Surge Warning is in effect. The deepest water is expected near and east of where the center comes ashore. Separately, a High Surf Warning runs from 7 AM Friday to 10 AM Sunday: waves of 6–10 ft Friday morning, building to 12–18 ft on the Alabama beaches Friday night."
     },
     {
       "label": "Size",
@@ -260,7 +264,8 @@ footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-t
     },
     {
       "label": "Rain & tornadoes",
-      "value": "3–7 inches of rain Friday through the weekend (unchanged), with up to 10 inches possible in spots near the coast. The local weather office (10:42 AM Thursday) adds that a narrow band of very heavy rain, up to 15 inches, could set up well east of the storm's center; it is not yet clear whether that would be over our area or farther east toward Florida's Big Bend. Tornadoes are possible Friday night through early Saturday, mainly on the east side of the storm's path, across coastal Alabama and the Florida Panhandle."
+      "value": "A Flood Watch covers our area from 1 PM Friday to 1 PM Saturday. The local weather office (2 PM Thursday) now expects 4–8 inches of rain Friday through early Saturday, a little more than the 3–7 inches the hurricane center gives for the whole coast. Narrow bands of 10–15 inches are possible, mainly across the Florida Panhandle and close to where the center tracks, which could include our area. Tornadoes are possible Friday night through early Saturday, mainly on the east side of the storm's path, across coastal Alabama and the Florida Panhandle.",
+      "tone": "warn"
     },
     {
       "label": "Chance of strong wind nearby (NHC)",
@@ -269,7 +274,7 @@ footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-t
     {
       "label": "Local actions",
       "tone": "warn",
-      "value": "Alabama state of emergency (40 counties), and Baldwin County and City of Orange Beach local states of emergency. Evacuation is voluntary: Orange Beach and Gulf Shores are encouraging all non-residents, and residents in low-lying, flood-prone areas, to leave. No mandatory order found as of 1:25 PM Thursday. From the City of Orange Beach's 5 AM Thursday update: the Gulf is closed to swimmers starting today (double red flags). All bridges close once steady winds reach 45 mph, and the city says not to count on them staying open past noon Friday. Hurricane decals (the windshield stickers used for getting back onto the island after a storm) are being issued at City Hall only until 5 PM today. Non-essential city offices close at noon today. County shelter opens Thursday 3 PM at the Baldwin County Coliseum in Robertsdale. County offices and Baldwin County public schools are closed Friday; Orange Beach City Schools are closed today and on fall break Friday. The National Shrimp Festival in Gulf Shores is canceled."
+      "value": "Alabama state of emergency (40 counties), and Baldwin County and City of Orange Beach local states of emergency. Evacuation of Orange Beach is still voluntary: Orange Beach and Gulf Shores are urging everyone who is not a permanent resident to leave now, along with residents in low-lying, flood-prone areas. No mandatory order for Orange Beach or Baldwin County found as of 2:25 PM Thursday. Next door in Florida, Escambia County ordered evacuation of its Zones A and B from noon today; that includes Perdido Key, which starts about 5 miles east of our condo, and Pensacola Beach. From the City of Orange Beach's 5 AM Thursday update: the Gulf is closed to swimmers (double red flags). All bridges close once steady winds reach 45 mph, and the city says not to count on them staying open past noon Friday. Hurricane decals (the windshield stickers used for getting back onto the island after a storm) are being issued at City Hall only until 5 PM today. Non-essential city offices closed at noon today. County shelter opens Thursday 3 PM at the Baldwin County Coliseum in Robertsdale; a second shelter opens Friday 6 AM at St. Paul's Episcopal Church in Foley. County offices and Baldwin County public schools are closed Friday; Orange Beach City Schools are closed today and on fall break Friday. The National Shrimp Festival in Gulf Shores is canceled."
     },
     {
       "label": "How sure",
@@ -283,15 +288,15 @@ footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-t
     },
     {
       "when": "Fri ~7 AM",
-      "what": "Peak strength, about 110 mph, about 220 miles south of the condo."
+      "what": "Peak strength, about 110 mph, about 220 miles south of the condo. High Surf Warning begins: waves 6–10 ft and building through the day."
     },
     {
       "when": "Fri late morning–early afternoon",
-      "what": "Tropical-storm winds reach the coast (our estimate is around midday; the city says as early as late Friday morning). Bridges close once steady winds reach 45 mph, and the city says not to count on them past noon Friday. Anything at the condo needs to be done before Friday morning."
+      "what": "Tropical-storm winds reach the coast (our estimate is around midday; the city says as early as late Friday morning). Bridges close once steady winds reach 45 mph, and the city says not to count on them past noon Friday. The Flood Watch begins at 1 PM. Anything at the condo needs to be done before Friday morning."
     },
     {
       "when": "Fri 7 PM",
-      "what": "Center about 47 miles south-southeast of the condo, about 100 mph, heading north at about 15 mph. Hurricane-force winds could reach the condo around 8 PM (our estimate). Storm surge rising through the afternoon and evening."
+      "what": "Center about 47 miles south-southeast of the condo, about 100 mph, heading north at about 15 mph. Hurricane-force winds could reach the condo around 8 PM (our estimate). Storm surge rising through the afternoon and evening, with surf of 12–18 ft Friday night."
     },
     {
       "when": "Fri ~10 PM",
@@ -314,6 +319,7 @@ footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-t
     "Today (Thursday) is the day for anything that needs doing on site. The city says not to count on the bridges being open past noon Friday. After the storm, getting back onto the island may be restricted for a while; the city's hurricane decals are used for that and are only being issued until 5 PM today."
   ],
   "changes": [
+    "2:25 PM Thursday check: the storm's path and strength forecasts are the same (no new hurricane center forecast until 4 PM). Three local items are new on this page. A Flood Watch is in effect for our area from 1 PM Friday to 1 PM Saturday, and the local weather office now expects 4–8 inches of rain (it said 3–7 this morning), with 10–15 inches possible in narrow bands near the storm's path. A High Surf Warning runs from 7 AM Friday to 10 AM Sunday, with waves building to 12–18 ft Friday night. And Escambia County, Florida, next door, ordered evacuation of its Zones A and B from noon today, including Perdido Key just east of us. Orange Beach's evacuation is still voluntary, with the cities urging all visitors and non-permanent residents to leave now.",
     "1 PM Thursday brief update from the hurricane center: nothing changed for us. Isaias is still an 85 mph hurricane, now about 453 miles from our condo (was 480 at 10 AM), moving east-northeast at 10 mph as expected. The Hurricane Warning, Storm Surge Warning, 5–7 ft surge and 3–7 inches of rain are all the same. The forecast path is not redrawn until 4 PM, so the landfall estimate (about 7 to 11 miles east of our condo, Friday around 10 PM) stands. Evacuation is still voluntary; nothing new from Baldwin County or the City of Orange Beach (checked 1:25 PM).",
     "The 10 AM Thursday forecast nudged the path slightly east near the coast. Estimated landfall is now about 7 to 11 miles east of our condo, on Perdido Key just over the Florida line (was 1 to 6 miles east, at Orange Beach or western Perdido Key). Timing is about the same: Friday around 10 PM (was about 9:30 PM). The hurricane center describes the new path as similar to its last one. This is a small move in our favor, but it does not change what to prepare for.",
     "Isaias strengthened to 85 mph (was 80 mph) and is now about 480 miles from our condo (was 529 at 4 AM). Forecasters see signs it could strengthen quickly today.",
@@ -386,6 +392,22 @@ footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-t
     {
       "title": "NWS Mobile – Hurricane Local Statement (10:42 AM Thu)",
       "url": "https://forecast.weather.gov/product.php?site=MOB&issuedby=MOB&product=HLS"
+    },
+    {
+      "title": "NWS Mobile – Flood Watch (2 PM Thu)",
+      "url": "https://forecast.weather.gov/product.php?site=MOB&issuedby=MOB&product=FFA"
+    },
+    {
+      "title": "NWS Mobile – High Surf Warning and rip currents (Thu morning)",
+      "url": "https://forecast.weather.gov/product.php?site=MOB&issuedby=MOB&product=CFW"
+    },
+    {
+      "title": "NBC 15 – Alabama's Beaches vacationers urged to evacuate (1:45 PM Thu)",
+      "url": "https://mynbc15.com/news/local/alabamas-beaches-vacationers-are-urged-to-evacuate-ahead-of-hurricane-isaias"
+    },
+    {
+      "title": "WEAR – Escambia County, FL evacuation order for Zones A and B",
+      "url": "https://weartv.com/news/local/escambia-county-declares-state-of-emergency-will-open-two-shelters"
     },
     {
       "title": "OBA – Orange Beach prepares for Hurricane Isaias (City of Orange Beach 5 AM update)",
