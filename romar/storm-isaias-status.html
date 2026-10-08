@@ -153,9 +153,9 @@ footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-t
 <script id="storm-data" type="application/json">
 {
   "storm": "Isaias",
-  "updated": "Thu Oct 8, 3:25 AM CDT (4:25 AM ET)",
-  "advisory": "NHC's 1 AM CDT Thursday update (6A), which is still the latest; the forecast path is from Advisory 6, 10 PM CDT Wed",
-  "next_advisory": "the full forecast at 4 AM CDT Thu, then a brief update at 7 AM",
+  "updated": "Thu Oct 8, 4:10 AM CDT. Checked again at 4:23 AM CDT (5:23 AM ET), nothing new. Facts are",
+  "advisory": "NHC's 4 AM CDT Thursday forecast (Advisory 7)",
+  "next_advisory": "a brief update at 7 AM CDT Thu, then the full forecast at 10 AM",
   "chips": [
     {
       "label": "Hurricane Warning",
@@ -170,66 +170,66 @@ footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-t
       "level": "ts-watch"
     }
   ],
-  "headline": "Isaias is now a hurricane, and a Hurricane Warning covers Orange Beach. It is forecast to come ashore Friday night about 16 miles east of our condo as a Category 2 hurricane.",
+  "headline": "Hurricane Isaias is strengthening, and the newest forecast path runs almost directly over Orange Beach. It is expected to come ashore Friday night within a few miles of our condo as a Category 2 hurricane.",
   "stats": [
     {
       "label": "Storm now",
-      "value": "555 mi",
-      "note": "south-southwest of our condo, 75 mph hurricane"
+      "value": "529 mi",
+      "note": "south-southwest of our condo, 80 mph hurricane"
     },
     {
       "label": "Est. landfall",
-      "value": "16 mi E",
-      "note": "east end of Perdido Key, Fri ~10 PM"
+      "value": "1–6 mi E",
+      "note": "Orange Beach / west Perdido Key, Fri ~9:30 PM (was 16 mi E)"
     },
     {
       "label": "At landfall",
       "value": "Cat 2",
-      "note": "about 100–105 mph; peak 110 mph Fri morning"
+      "note": "about 100 mph; peak 110 mph early Fri"
     }
   ],
   "distance": {
     "caption": "How far the center is from our condo, now and along the NHC forecast track. Central time.",
     "rows": [
       {
-        "when": "Now · Thu 1 AM",
-        "miles": 555,
+        "when": "Now · Thu 4 AM",
+        "miles": 529,
         "dir": "SSW"
       },
       {
-        "when": "Thu 7 AM",
-        "miles": 511,
+        "when": "Thu 1 PM",
+        "miles": 444,
         "dir": "SSW"
       },
       {
-        "when": "Thu 7 PM",
-        "miles": 395,
+        "when": "Fri 1 AM",
+        "miles": 307,
         "dir": "SSW"
       },
       {
-        "when": "Fri 7 AM",
-        "miles": 240,
+        "when": "Fri 1 PM",
+        "miles": 129,
         "dir": "S"
       },
       {
-        "when": "Fri 7 PM",
-        "miles": 49,
-        "dir": "SSE"
-      },
-      {
-        "when": "Fri ~10 PM landfall",
-        "miles": 16,
-        "dir": "E",
+        "when": "Fri ~9:30 PM landfall",
+        "miles": 1,
+        "dir": "E (est. 1–6 mi)",
         "key": true
       },
       {
-        "when": "Sat 7 AM",
-        "miles": 155,
+        "when": "Sat 1 AM",
+        "miles": 51,
         "dir": "N"
       },
       {
-        "when": "Sat 7 PM",
-        "miles": 335,
+        "when": "Sat 1 PM",
+        "miles": 243,
+        "dir": "NNW"
+      },
+      {
+        "when": "Sun 1 AM",
+        "miles": 401,
         "dir": "N"
       }
     ]
@@ -237,90 +237,88 @@ footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-t
   "facts": [
     {
       "label": "Strength now",
-      "value": "Hurricane, 75 mph winds (as of 1 AM Thursday, unchanged since 10:30 PM Wednesday). It went from 40 mph to 75 mph in about 18 hours and is expected to keep strengthening through early Friday, peaking near 110 mph.",
-      "tone": "bad"
+      "tone": "bad",
+      "value": "Hurricane, 80 mph winds (up from 75 mph), as of 4 AM Thursday. Hurricane Hunter aircraft found it still strengthening. It is expected to keep strengthening through early Friday, peaking near 110 mph, then weaken a little in the last hours before landfall."
     },
     {
       "label": "Moving",
-      "value": "East-northeast at 9 mph. Turns northeast Thursday and north Friday, and speeds up."
+      "value": "East-northeast at 9 mph. Turns northeast today and north on Friday, and speeds up to about 15 mph."
     },
     {
       "label": "Which side we're on",
-      "value": "The condo is on the west side of the forecast path. That side usually gets less wind and surge. But at 16 miles the condo sits right at the edge of the forecast hurricane-force winds, which reach about 17–23 miles out on the west side.",
-      "tone": "warn"
+      "tone": "bad",
+      "value": "The forecast path now passes almost directly over Orange Beach, an estimated 1 to 6 miles east of our condo. That leaves the condo just barely on the west side, but this close it makes little difference: the condo would be in or next to the strongest winds around the center, well inside the hurricane-force winds, which are forecast to reach about 23–35 miles out."
     },
     {
       "label": "Storm surge",
-      "value": "5–7 ft of water above normally dry ground from Ocean Springs, MS to Indian Pass, FL, including Orange Beach (NHC). This is now a Storm Surge Warning. The deepest water is expected near and east of where the center comes ashore.",
-      "tone": "bad"
+      "tone": "bad",
+      "value": "5–7 ft of water above normally dry ground from Ocean Springs, MS to Indian Pass, FL, including Orange Beach and Mobile Bay (NHC, unchanged). A Storm Surge Warning is in effect. The deepest water is expected near and east of where the center comes ashore."
     },
     {
       "label": "Size",
-      "value": "Small for now. Tropical-storm winds reach about 60 miles from the center. By Friday evening they are forecast to reach 80–160 miles, farthest on the east side."
+      "value": "Still fairly small. Hurricane winds reach 15 miles from the center and tropical-storm winds about 90 miles (was 60). By Friday afternoon tropical-storm winds are forecast to reach 80–175 miles, farthest on the east side."
     },
     {
       "label": "Rain & tornadoes",
-      "value": "3–7 inches of rain, locally 10, Friday through the weekend. Isolated tornadoes possible on the Alabama coast Friday night."
+      "value": "3–7 inches of rain, locally 10, Friday through the weekend (unchanged). Isolated tornadoes possible on the Alabama coast Friday night."
     },
     {
       "label": "Chance of strong wind nearby (NHC)",
-      "value": "Pensacola: 66% tropical-storm winds, 37% winds of 58+ mph, 14% hurricane winds. Mobile: 42%, 19%, 6%. Orange Beach sits between the two. The hurricane-wind odds rose from 8% and 5%."
+      "value": "Pensacola: 69% tropical-storm winds, 29% winds of 58+ mph, 7% hurricane winds. Mobile: 51%, 18%, 4%. Orange Beach sits between the two. The tropical-storm odds went up (were 66% and 42%) and the hurricane-wind odds went down (were 14% and 6%). These odds are for those two cities; the Hurricane Warning for Orange Beach is unchanged."
     },
     {
       "label": "Local actions",
-      "value": "Alabama state of emergency (40 counties) and Baldwin County state of emergency. Voluntary evacuation for coastal and low-lying areas, including Orange Beach and Gulf Shores. No mandatory order found as of 3:25 AM Thursday. Shelter opens Thursday 3 PM at the Baldwin County Coliseum in Robertsdale. County offices and Baldwin County public schools closed Friday. The National Shrimp Festival in Gulf Shores is canceled.",
-      "tone": "warn"
+      "tone": "warn",
+      "value": "Alabama state of emergency (40 counties) and Baldwin County state of emergency. Voluntary evacuation for coastal and low-lying areas, including Orange Beach and Gulf Shores. No mandatory order found as of 4:23 AM Thursday. Shelter opens Thursday 3 PM at the Baldwin County Coliseum in Robertsdale. County offices and Baldwin County public schools closed Friday. The National Shrimp Festival in Gulf Shores is canceled."
     },
     {
       "label": "How sure",
-      "value": "Moderate. Landfall is about two days away, and two-day forecasts are typically off by about 70 miles, so anywhere from the Mississippi coast to Destin is still possible. The forecasters note Isaias could strengthen quickly."
+      "value": "Moderate. Landfall is about a day and a half away, and forecasts that far out are typically off by about 60 miles, so the center could still come ashore anywhere from around Pascagoula to Destin. The hurricane center says this forecast path is very close to its last one. The landfall spot is our own estimate from the forecast points, which are 12 hours apart, so read it as \"within a few miles of the condo\" rather than an exact number. Forecasters call the strength forecast tricky."
     }
   ],
   "timeline": [
     {
       "when": "Thu",
-      "what": "Hurricane strengthens over the central Gulf. Rip currents and surf build along the beaches. County shelter opens at 3 PM. This is the day to finish preparations."
+      "what": "Hurricane strengthens over the central Gulf, to about 100 mph by 1 PM. Surf and rip currents build along the beaches. County shelter opens at 3 PM. This is the day to finish preparations."
     },
     {
-      "when": "Fri ~7 AM",
-      "what": "Peak strength, about 110 mph, 240 miles south of the condo."
+      "when": "Fri ~1 AM",
+      "what": "Peak strength, about 110 mph, about 305 miles south-southwest of the condo."
     },
     {
-      "when": "Fri midday–afternoon",
-      "what": "Tropical-storm winds reach the coast. Anything at the condo needs to be done before Friday morning."
+      "when": "Fri late morning–early afternoon",
+      "what": "Tropical-storm winds reach the coast (our estimate). Anything at the condo needs to be done before Friday morning."
     },
     {
-      "when": "Fri 7 PM",
-      "what": "Center about 49 miles south-southeast of the condo, about 105 mph. Storm surge rising."
+      "when": "Fri 1 PM",
+      "what": "Center about 130 miles due south of the condo, about 105 mph, heading north at about 15 mph. Storm surge rising through the afternoon and evening."
     },
     {
-      "when": "Fri ~10 PM",
-      "what": "Landfall, estimated near the east end of Perdido Key, about 16 miles east of the condo. Hurricane conditions Friday night into early Saturday.",
-      "key": true
+      "when": "Fri ~9:30 PM",
+      "key": true,
+      "what": "Landfall, estimated at Orange Beach or western Perdido Key, about 1 to 6 miles east of the condo. Hurricane conditions Friday night into early Saturday."
     },
     {
-      "when": "Sat 7 AM",
-      "what": "Center already 155 miles north, in central Alabama, down to about 60 mph. Winds ease at the coast through the morning."
+      "when": "Sat 1 AM",
+      "what": "Center about 50 miles north of the condo, near Atmore, down to about 65 mph. Winds ease at the coast overnight and through Saturday morning."
     },
     {
       "when": "Sat–Sun",
-      "what": "Heavy rain and gusty winds move inland. Storm fades over Tennessee by Saturday night."
+      "what": "Heavy rain and gusty winds move inland. The storm fades to a weak low over northeast Mississippi Saturday afternoon and western Tennessee by early Sunday."
     }
   ],
   "condo": [
     "Our unit is on the 11th floor, so surge won't reach it. But 5–7 ft of surge can flood the ground floor, parking, and elevator and power rooms, and it can close Perdido Beach Blvd and knock out power for days.",
-    "Winds are stronger up high. Balcony furniture needs to come inside, and the sliding door latch issue matters because a door that doesn't fully latch can leak or blow open.",
-    "A Hurricane Warning means hurricane winds are expected, not just possible. If the path shifts 20–30 miles west, the condo ends up on the stronger east side of the storm.",
-    "After the storm, getting back onto the island may be restricted for a while."
+    "The forecast now brings the center within a few miles of the building, so hurricane-force winds are likely at the condo, and winds are stronger on high floors. Balcony furniture needs to come inside, and the sliding door latch issue matters because a door that doesn't fully latch can leak or blow open.",
+    "Small shifts matter now. A shift to the east would help us. A shift to the west would not: it would put the condo on the stronger east side of the storm, where hurricane winds reach about 35 miles from the center and the surge is higher.",
+    "Today (Thursday) is the day for anything that needs doing on site. After the storm, getting back onto the island may be restricted for a while."
   ],
   "changes": [
-    "Checked again at 3:25 AM Thursday: nothing new from the hurricane center or from Baldwin County and Orange Beach officials. The 1 AM Thursday update changed nothing in the forecast or the warnings. Isaias is still a 75 mph hurricane, about 555 miles from our condo (was 573 at 10:30 PM). The next full forecast comes at 4 AM. The points below are what changed late Wednesday.",
-    "Hurricane Warning and Storm Surge Warning now cover Orange Beach. Both were upgraded from watches at 10 PM Wednesday.",
-    "Isaias became a hurricane at 10:30 PM Wednesday, with 75 mph winds (up from 65 mph at 7 PM).",
-    "Estimated landfall moved slightly, to about 16 miles east of our condo (was 14). Timing is still Friday around 10 PM.",
-    "Strength near landfall is now forecast at about 105 mph, Category 2 (was Category 1–2). The peak is still about 110 mph, now expected Friday morning instead of Friday afternoon.",
-    "Chance of hurricane winds rose: Pensacola 14% (was 8%), Mobile 6% (was 5%).",
-    "Surge (5–7 ft) and rain (3–7 in.) forecasts are unchanged. Evacuation is still voluntary."
+    "The 4 AM Thursday forecast moved the path a little west near the coast. Estimated landfall is now about 1 to 6 miles east of our condo, at Orange Beach or western Perdido Key (was about 16 miles east). The hurricane center describes the new path as very close to the last one; the first point inland moved about 12 miles west. Timing is about the same: Friday around 9:30 PM (was about 10 PM).",
+    "Isaias strengthened to 80 mph (was 75 mph) and is about 529 miles from our condo (was 555).",
+    "Peak strength is still about 110 mph, now expected around 1 AM Friday (was 7 AM Friday). Strength at landfall is still estimated as Category 2, about 100 mph, with some weakening expected in the final hours.",
+    "Chance of tropical-storm winds rose (Pensacola 69%, was 66%; Mobile 51%, was 42%). Chance of hurricane winds at those two cities fell (Pensacola 7%, was 14%; Mobile 4%, was 6%).",
+    "No change to the Hurricane Warning, the Storm Surge Warning, the 5–7 ft surge forecast or the 3–7 inch rain forecast. Evacuation is still voluntary, and there are no new notices from Baldwin County or Orange Beach as of 4:23 AM Thursday."
   ],
   "history": [
     {
@@ -346,6 +344,10 @@ footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-t
     {
       "when": "Wed Oct 7, 10:30 PM",
       "what": "Isaias becomes a hurricane, 75 mph. The first Atlantic hurricane of the season."
+    },
+    {
+      "when": "Thu Oct 8, 4 AM",
+      "what": "80 mph and still strengthening. Forecast path shifts slightly west, to almost directly over Orange Beach."
     }
   ],
   "sources": [
@@ -358,12 +360,12 @@ footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-t
       "url": "https://www.nhc.noaa.gov/graphics_at4.shtml?cone#contents"
     },
     {
-      "title": "NHC – Advisory 6 (10 PM Wed)",
-      "url": "https://www.nhc.noaa.gov/archive/2026/al09/al092026.public.006.shtml"
+      "title": "NHC – Advisory 7 (4 AM Thu)",
+      "url": "https://www.nhc.noaa.gov/archive/2026/al09/al092026.public.007.shtml"
     },
     {
-      "title": "NHC – 1 AM Thursday update (6A)",
-      "url": "https://www.nhc.noaa.gov/archive/2026/al09/al092026.public_a.006.shtml"
+      "title": "NHC – forecasters' discussion (4 AM Thu)",
+      "url": "https://www.nhc.noaa.gov/archive/2026/al09/al092026.discus.007.shtml"
     },
     {
       "title": "FOX10 – Hurricane warnings issued; finish preparations Thursday",
@@ -383,9 +385,9 @@ footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-t
     }
   ],
   "map": {
-    "caption": "Drawn from the National Hurricane Center forecast issued 10 PM CDT Wednesday (Advisory 6), which is still the current forecast path. At 1 AM Thursday the center was a little farther along it, about 555 miles from our condo. Times are Central.",
+    "caption": "Drawn from the National Hurricane Center forecast issued 4 AM CDT Thursday (Advisory 7). Times are Central.",
     "gulf_caption": "The whole Gulf. Letters show forecast strength at each point. Gray dashes show where Isaias has already been.",
-    "local_caption": "Close-up of the coast (this whole area is inside the cone). Estimated landfall is about 16 miles east of our condo. The red dashed circle shows roughly how far hurricane-force winds reach from the center; our condo is near its western edge.",
+    "local_caption": "Close-up of the coast (this whole area is inside the cone). The forecast path crosses the coast at Orange Beach, an estimated 1 to 6 miles east of our condo. The red dashed circle shows roughly how far hurricane-force winds reach from the center; our condo is well inside it.",
     "official_url": "https://www.nhc.noaa.gov/graphics_at4.shtml?cone#contents",
     "condo": {
       "lat": 30.26144,
@@ -407,68 +409,76 @@ footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-t
       [
         22.9,
         -91.9
+      ],
+      [
+        23.1,
+        -91.7
+      ],
+      [
+        23.3,
+        -91.2
       ]
     ],
     "track": [
       {
         "h": 0,
-        "lat": 22.9,
-        "lon": -91.9,
-        "when": "Wed 10 PM",
-        "mph": 75,
+        "lat": 23.3,
+        "lon": -91.2,
+        "when": "Thu 4 AM",
+        "mph": 80,
         "type": "H",
         "cone": 0
       },
       {
         "h": 12,
-        "lat": 23.4,
-        "lon": -90.7,
-        "when": "Thu 7 AM",
-        "mph": 85,
+        "lat": 24.2,
+        "lon": -90.0,
+        "when": "Thu 1 PM",
+        "mph": 100,
         "type": "H",
         "cone": 25
       },
       {
         "h": 24,
-        "lat": 24.7,
-        "lon": -89.1,
-        "when": "Thu 7 PM",
-        "mph": 100,
+        "lat": 25.9,
+        "lon": -88.6,
+        "when": "Fri 1 AM",
+        "mph": 110,
         "type": "H",
         "cone": 39
       },
       {
         "h": 36,
-        "lat": 26.8,
-        "lon": -87.9,
-        "when": "Fri 7 AM",
-        "mph": 110,
+        "lat": 28.4,
+        "lon": -87.6,
+        "when": "Fri 1 PM",
+        "mph": 105,
         "type": "H",
         "cone": 49
       },
       {
         "h": 48,
-        "lat": 29.6,
-        "lon": -87.3,
-        "when": "Fri 7 PM",
-        "mph": 105,
-        "type": "H",
+        "lat": 31.0,
+        "lon": -87.6,
+        "when": "Sat 1 AM",
+        "mph": 65,
+        "type": "S",
         "cone": 62
       },
       {
         "h": 60,
-        "lat": 32.5,
-        "lon": -87.5,
-        "when": "Sat 7 AM",
-        "mph": 60,
-        "type": "S",
+        "lat": 33.7,
+        "lon": -88.5,
+        "when": "Sat 1 PM",
+        "mph": 35,
+        "type": "L",
         "cone": 77
       },
       {
         "h": 72,
-        "lat": 35.1,
-        "lon": -88.0,
-        "when": "Sat 7 PM",
+        "lat": 36.0,
+        "lon": -88.7,
+        "when": "Sun 1 AM",
         "mph": 30,
         "type": "L",
         "cone": 95
@@ -476,10 +486,10 @@ footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-t
     ],
     "landfall": {
       "lat": 30.27,
-      "lon": -87.346,
-      "label": "Est. landfall Fri ~10 PM"
+      "lon": -87.6,
+      "label": "Est. landfall Fri ~9:30 PM"
     },
-    "hurricane_wind_mi": 24
+    "hurricane_wind_mi": 30
   }
 }
 </script>
