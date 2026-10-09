@@ -57,23 +57,25 @@
 }
 * { box-sizing: border-box; }
 body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; }
-.wrap { max-width: 760px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 48px; display: grid; gap: 28px; }
+.wrap { max-width: 760px; margin: 0 auto; padding-inline: 16px; padding-block: 16px 48px; display: grid; gap: 24px; }
 h1, h2 { font-family: var(--display); margin: 0; text-wrap: balance; }
-h1 { font-size: clamp(30px, 6vw, 44px); line-height: 1.08; font-weight: 700; }
+/* Header is kept small and tight on purpose (Tony's request, Oct 9 2026). Don't enlarge it. */
+h1 { font-size: clamp(19px, 4.8vw, 24px); line-height: 1.22; font-weight: 600; text-wrap: pretty; }
 h2 { font-size: 22px; font-weight: 600; letter-spacing: .01em; }
 p { margin: 0; }
 a { color: var(--accent); }
 a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.eyebrow { font-family: var(--display); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-size: 14px; }
-.head { display: grid; gap: 12px; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip { font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: .03em; padding: 3px 10px; border-radius: 4px; color: var(--chip-ink); background: var(--muted); }
+.eyebrow { font-family: var(--display); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-size: 12px; }
+.head { display: grid; gap: 8px; }
+.summary { font-size: 15px; line-height: 1.5; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip { font-family: var(--display); font-weight: 600; font-size: 13px; letter-spacing: .01em; line-height: 1.3; padding: 2px 8px; border-radius: 4px; color: var(--chip-ink); background: var(--muted); }
 .chip.hu-warning { background: var(--hu-warning); }
 .chip.hu-watch { background: var(--hu-watch); }
 .chip.ts-warning { background: var(--ts-warning); }
 .chip.ts-watch { background: var(--ts-watch); }
 .chip.ok { background: var(--ok); }
-.updated { color: var(--muted); font-size: 14px; }
+.updated { color: var(--muted); font-size: 13px; line-height: 1.4; }
 .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
 .stat { background: var(--surface); padding: 14px 14px 16px; display: grid; gap: 2px; align-content: start; min-width: 0; }
 .stat .k { font-size: 13px; color: var(--muted); }
@@ -178,7 +180,8 @@ footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-t
       "level": "ts-watch"
     }
   ],
-  "headline": "Hurricane Isaias is a Category 3 hurricane with 120 mph winds, about 92 miles south-southeast of our condo. The forecast path moved east again: ashore tonight around 10 PM near Navarre Beach, Florida, about 44 to 48 miles east of our condo (was 28 to 31). It is now expected to still be about Category 3, roughly 115 mph, at landfall. The storm surge forecast for Orange Beach is unchanged at 4–6 ft. Visitors and non-residents are under orders to leave Orange Beach. The City of Orange Beach has set a citywide curfew from 7 PM tonight to 7 AM Saturday and says its local bridges closed at noon; state troopers have closed the Alabama 161 bridge over the Intracoastal Waterway to everything but emergency vehicles.",
+  "headline": "Hurricane Isaias, a Category 3 storm with 120 mph winds, is forecast to come ashore tonight around 10 PM near Navarre Beach, Florida, about 44 to 48 miles east of our condo.",
+  "summary": "The center is about 92 miles south-southeast of our condo, and the forecast path moved east again (it was 28 to 31 miles east of us). It is now expected to still be about Category 3, roughly 115 mph, at landfall. The storm surge forecast for Orange Beach is unchanged at 4–6 ft. Visitors and non-residents are under orders to leave Orange Beach. The City of Orange Beach has set a citywide curfew from 7 PM tonight to 7 AM Saturday and says its local bridges closed at noon; state troopers have closed the Alabama 161 bridge over the Intracoastal Waterway to everything but emergency vehicles.",
   "stats": [
     {
       "label": "Storm now",
@@ -670,6 +673,7 @@ footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-t
   (d.chips || []).forEach(function (c) { chips.appendChild(el('span', 'chip ' + (c.level || ''), c.label)); });
   head.appendChild(chips);
   head.appendChild(el('h1', null, d.headline));
+  if (d.summary) head.appendChild(el('p', 'summary', d.summary));
   head.appendChild(el('p', 'updated', 'Updated ' + d.updated + ' from ' + d.advisory + '. Next forecast: ' + d.next_advisory + '.'));
   app.appendChild(head);
 
@@ -879,6 +883,24 @@ footer { color: var(--muted); font-size: 13px; display: grid; gap: 6px; border-t
     sl.appendChild(li);
   });
   ft.appendChild(sl);
+  // Visitor counter. Runs only on the public GitHub copy (github.io); the Claude page blocks outside requests.
+  // Each browser is counted once (remembered in localStorage); later visits only read the total.
+  // Uses the free Abacus counting service; the counter name comes from the storm name.
+  var vp = el('p', 'visits'); vp.hidden = true; ft.appendChild(vp);
+  if (/(^|\.)github\.io$/.test(location.hostname) && window.fetch) {
+    var vkey = 'storm-' + String(d.storm || 'page').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    var vflag = 'romar-visited-' + vkey, seen = false;
+    try { seen = localStorage.getItem(vflag) === '1'; } catch (e) {}
+    fetch('https://abacus.jasoncameron.dev/' + (seen ? 'get' : 'hit') + '/tlittletony-romar/' + vkey)
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) {
+        if (!j || typeof j.value !== 'number') return;
+        try { localStorage.setItem(vflag, '1'); } catch (e) {}
+        vp.textContent = 'Visitors to this page: ' + j.value.toLocaleString('en-US');
+        vp.hidden = false;
+      })
+      .catch(function () {});
+  }
   app.appendChild(ft);
 })();
 </script>
